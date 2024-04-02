@@ -1,8 +1,7 @@
 name: tfc_versaofinal
+
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-
 version: 1.0.0+1
 
 environment:
@@ -15,6 +14,10 @@ dependencies:
     sdk: flutter
 
   # utility Packages
+  http: ^1.1.0
+  intl: ^0.18.1
+  logger: ^2.0.1
+  url_launcher: ^6.1.12
 
   # Icons
   iconsax: ^0.0.8
@@ -22,6 +25,7 @@ dependencies:
 
   # State Management
   get: ^4.6.5
+  get_storage: ^2.1.1
 
   # Product Specific
 
