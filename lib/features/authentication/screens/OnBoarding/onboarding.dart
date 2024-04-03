@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:tfc_versaofinal/features/authentication/controllers.onboarding/onboarding_controller.dart';
 import 'package:tfc_versaofinal/features/authentication/screens/OnBoarding/widgets/onboarding_dot_navigation.dart';
 import 'package:tfc_versaofinal/features/authentication/screens/OnBoarding/widgets/onboarding_next_button.dart';
-import 'package:tfc_versaofinal/features/authentication/screens/OnBoarding/widgets/onboarding_page.dart';
 import 'package:tfc_versaofinal/features/authentication/screens/OnBoarding/widgets/onboarding_skip.dart';
+import 'package:tfc_versaofinal/features/authentication/screens/OnBoarding/widgets/onboarding_pages.dart';
 import 'package:tfc_versaofinal/utils/constants/image_strings.dart';
 import 'package:tfc_versaofinal/utils/constants/text_strings.dart';
 
@@ -21,6 +21,8 @@ class OnBoardingScreen extends StatelessWidget {
         children: [
           // Horizontal Pages
           PageView(
+            controller: controller.pageController,
+            onPageChanged: controller.updatePageIndicator,
             children: const [
               OnBoardingPage(
                 image: TFCImages.onBoardingImage1,

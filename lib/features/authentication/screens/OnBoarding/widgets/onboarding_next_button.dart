@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tfc_versaofinal/features/authentication/controllers.onboarding/onboarding_controller.dart';
 import 'package:tfc_versaofinal/utils/constants/colors.dart';
 import 'package:tfc_versaofinal/utils/constants/sizes.dart';
 import 'package:tfc_versaofinal/utils/device/device_utility.dart';
@@ -18,7 +19,7 @@ class OnBordingNextButton extends StatelessWidget {
       right: TFCSizes.defaultSpace,
       bottom: TFCDeviceUtils.getBottomNavigationBarHeight(),
       child: ElevatedButton(
-        onPressed: (){},
+        onPressed: () => OnBoardingController.instance.nextPage(),
         style: ElevatedButton.styleFrom(shape: const CircleBorder(), backgroundColor: dark ? TFCColors.primary: Colors.black),
         child: const Icon(Iconsax.arrow_right_3),
       ),
