@@ -5,5 +5,4 @@ class TFCFormatter {
     date ??= DateTime.now();
     return DateFormat('dd-MM-yyyy').format(date); // Customized Date
   }
-
 }

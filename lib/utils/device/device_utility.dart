@@ -42,5 +42,4 @@ class TFCDeviceUtils {
   static double getStatusBarHeight() {
     return MediaQuery.of(Get.context!).padding.top;
   }
-
 }
