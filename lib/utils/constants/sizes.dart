@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 // This class provides a better use of my code and a more organized way of working
 class TFCSizes {
