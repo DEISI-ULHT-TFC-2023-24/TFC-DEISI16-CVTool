@@ -42,4 +42,12 @@ class TFCDeviceUtils {
   static double getStatusBarHeight() {
     return MediaQuery.of(Get.context!).padding.top;
   }
+
+  static double getAppbarHeight() {
+    return kToolbarHeight;
+  }
+
+  static double getBottomNavigationBarHeight() {
+    return kBottomNavigationBarHeight;
+  }
 }
