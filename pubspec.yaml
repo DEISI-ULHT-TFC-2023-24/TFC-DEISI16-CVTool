@@ -50,6 +50,7 @@ flutter:
     - assets/icons/
     - assets/images/On_Boarding_gifs/
     - assets/videos/
+    - assets/images/animations/
 
 #-------------- LOCAL FONTS ----------------------#
 fonts:

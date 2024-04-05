@@ -14,4 +14,9 @@ class TFCImages {
   static const String onBoardingImage1 = "assets/images/On_Boarding_gifs/sammy-line-remote-work.gif";
   static const String onBoardingImage2 = "assets/images/On_Boarding_gifs/sammy-line-no-connection.gif";
   static const String onBoardingImage3 = "assets/images/On_Boarding_gifs/sammy-line-man-leaning-on-a-growth-chart-while-tossing-a-coin.gif";
+
+  // Signup images
+  static const String sucessImage1 = "assets/images/animations/sammy-line-come-back-later.png";
+
+
 }

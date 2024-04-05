@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tfc_versaofinal/features/authentication/screens/Register/widgets/signup_form.dart';
+import 'package:tfc_versaofinal/features/authentication/screens/register/widgets/signup_form.dart';
 import 'package:tfc_versaofinal/utils/constants/sizes.dart';
 import 'package:tfc_versaofinal/utils/constants/text_strings.dart';
 

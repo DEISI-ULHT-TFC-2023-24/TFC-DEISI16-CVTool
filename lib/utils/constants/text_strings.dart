@@ -34,10 +34,11 @@ class TFCTexts {
   static const String createAccount = "Registar-se";
   static const String privateUser = "Utilizador particular";
   static const String businessUser = "Utilizador empresarial";
-  static const String verificationCode = "Código de verificação";
-  static const String resendEmail = "Reenviar email";
   static const String iAgreeTo = "Concordo com ";
+  static const String continueMsg = "Continuar";
   static const String privatePolicy = "a Política de privacidade.";
+  static const String sucessTitle = "Boa!";
+  static const String sucessSubTitle = "Seja bem-vindo a esta comunidade, onde esperamos que encontre o emprego dos seus sonhos!";
 
   // Home
   static const String homeAppbartittle = "É bom tê-lo de volta!";
