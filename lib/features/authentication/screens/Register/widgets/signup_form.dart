@@ -7,6 +7,7 @@ import '../../../../../utils/constants/text_strings.dart';
 class SignUpForm extends StatelessWidget {
   const SignUpForm({super.key,});
 
+
   @override
   Widget build(BuildContext context) {
     return Form(
