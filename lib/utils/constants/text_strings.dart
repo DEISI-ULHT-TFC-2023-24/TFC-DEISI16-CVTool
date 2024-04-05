@@ -37,8 +37,7 @@ class TFCTexts {
   static const String verificationCode = "Código de verificação";
   static const String resendEmail = "Reenviar email";
   static const String iAgreeTo = "Concordo com ";
-  static const String privatePolicy = "a Política de privacidade";
-  static const String termsOfUse = "e termos de utilização.";
+  static const String privatePolicy = "a Política de privacidade.";
 
   // Home
   static const String homeAppbartittle = "É bom tê-lo de volta!";

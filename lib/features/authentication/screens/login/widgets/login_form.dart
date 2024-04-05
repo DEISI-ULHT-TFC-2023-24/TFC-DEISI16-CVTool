@@ -27,6 +27,7 @@ class LoginForm extends StatelessWidget {
 
             // Password
             TextFormField(
+              obscureText: true,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.password_check),
                 labelText: TFCTexts.password,
