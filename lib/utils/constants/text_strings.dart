@@ -17,6 +17,7 @@ class TFCTexts {
   // Login Texts
   static const String loginTitle1 = "Bem-vindo de volta!";
   static const String loginSubTitle1 = "Preencha os campos com as suas credenciais.";
+  static const String signUpTitle1 = "Vamos criar a sua conta!";
 
 
   // Authentication forms texts

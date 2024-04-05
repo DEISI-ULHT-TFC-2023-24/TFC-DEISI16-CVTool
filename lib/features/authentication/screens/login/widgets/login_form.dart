@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:tfc_versaofinal/features/authentication/screens/Register/signup.dart';
 import 'package:tfc_versaofinal/utils/constants/sizes.dart';
 import 'package:tfc_versaofinal/utils/constants/text_strings.dart';
 
@@ -58,7 +60,7 @@ class LoginForm extends StatelessWidget {
             const SizedBox(height: TFCSizes.spaceBtwItems),
 
             // Create a new account
-            SizedBox(width: double.infinity ,child: OutlinedButton(onPressed: (){}, child: const Text(TFCTexts.createAccount))),
+            SizedBox(width: double.infinity ,child: OutlinedButton(onPressed: () => Get.to(() => const SignupScreen()), child: const Text(TFCTexts.createAccount))),
             const SizedBox(height: TFCSizes.spaceBtwSections),
           ],
         ),
