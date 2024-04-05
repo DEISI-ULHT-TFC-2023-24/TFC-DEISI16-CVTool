@@ -17,6 +17,7 @@ class FormDivider extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Flexible(child: Divider(color: dark ? TFCColors.darkerGrey: TFCColors.grey, thickness: 0.5, indent: 60, endIndent: 5)),
+        Text(dividerText, style: Theme.of(context).textTheme.labelMedium),
         Flexible(child: Divider(color: dark ? TFCColors.darkerGrey: TFCColors.grey, thickness: 0.5, indent: 5, endIndent: 60)),
       ],
     );
