@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tfc_versaofinal/features/authentication/screens/register/widgets/sucess/sucess_screen.dart';
-import '../../../../../common/widgets/login/conditions_checkbox.dart';
-import '../../../../../utils/constants/sizes.dart';
-import '../../../../../utils/constants/text_strings.dart';
+import '../../../../../../common/widgets/login/conditions_checkbox.dart';
+import '../../../../../../utils/constants/sizes.dart';
+import '../../../../../../utils/constants/text_strings.dart';
+import '../../sucess/sucess_screen.dart';
 
-class SignUpForm extends StatelessWidget {
-  const SignUpForm({
+class BusinessSignUpForm extends StatelessWidget {
+  const BusinessSignUpForm({
     super.key,
   });
 
@@ -74,6 +74,15 @@ class SignUpForm extends StatelessWidget {
             decoration: const InputDecoration(
                 labelText: TFCTexts.mobilePhone,
                 prefixIcon: Icon(Iconsax.call)),
+          ),
+          const SizedBox(height: TFCSizes.spaceBtwInputFields),
+
+          // Company name
+          TextFormField(
+            expands: false,
+            decoration: const InputDecoration(
+                labelText: TFCTexts.company,
+                prefixIcon: Icon(Iconsax.building)),
           ),
           const SizedBox(height: TFCSizes.spaceBtwSections),
 

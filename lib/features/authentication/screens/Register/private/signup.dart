@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tfc_versaofinal/features/authentication/screens/register/widgets/signup_form.dart';
+import 'package:get/get.dart';
 import 'package:tfc_versaofinal/utils/constants/sizes.dart';
 import 'package:tfc_versaofinal/utils/constants/text_strings.dart';
+import '../../../../../common/widgets/login/form_divider.dart';
+import '../business/business_signup.dart';
+import '../private/widgets/signup_form.dart';
 
 
 class SignupScreen extends StatelessWidget {
@@ -26,6 +29,16 @@ class SignupScreen extends StatelessWidget {
 
               // Form
               const SignUpForm(),
+              const SizedBox(height: TFCSizes.spaceBtwItems),
+
+              // Divider
+              const FormDivider(dividerText: TFCTexts.business),
+              const SizedBox(height: TFCSizes.spaceBtwItems),
+
+              // Business Register
+              // SignUp Button
+              SizedBox(width: double.infinity ,child: OutlinedButton(onPressed: () => Get.to(() => const SignupBusinessScreen()), child: const Text(TFCTexts.businessRegister))),
+              const SizedBox(height: TFCSizes.spaceBtwSections),
             ],
           ),
         ),
