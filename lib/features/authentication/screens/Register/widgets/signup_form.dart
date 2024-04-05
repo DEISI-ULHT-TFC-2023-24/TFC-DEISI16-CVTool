@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tfc_versaofinal/utils/helpers/helper_functions.dart';
-
 import '../../../../../common/widgets/login/conditions_checkbox.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
