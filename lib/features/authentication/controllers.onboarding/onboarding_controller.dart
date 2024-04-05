@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:tfc_versaofinal/features/authentication/screens/login/private/login.dart';
+import 'package:tfc_versaofinal/features/authentication/screens/login/login.dart';
 
 
 class OnBoardingController extends GetxController {
