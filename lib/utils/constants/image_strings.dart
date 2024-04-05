@@ -3,6 +3,8 @@ class TFCImages {
   // App Logos
   static const String darkThemeAppLogo = "assets/logos/TMS_Dark_Mode.png";
   static const String lightThemeAppLogo = "assets/logos/TMS_Light_Mode.png";
+  static const String darkThemeAppLogoCircular = "assets/logos/TMS_Dark_Oval.png";
+  static const String lightThemeAppLogoCircular = "assets/logos/TMS_Light_Oval.png";
 
   // Social Logos
   static const String linkedIn = "assets/icons/linkedin.png";
