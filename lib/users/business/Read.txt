@@ -1,0 +1,7 @@
+In this section we can see all the widgets that builds the Business user UI and UX.
+There are some comments, in case you wonder why i did this "Read" file because,
+we always have different ideas so in case i forgot something i can easily remember.
+
+-> This screens are exclusive to the Business User.
+-> Four main screens.
+-> In the Business screen i will might unify the same business workers.

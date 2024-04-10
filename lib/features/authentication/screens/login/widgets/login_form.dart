@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tfc_versaofinal/navigation_bar.dart';
+import 'package:tfc_versaofinal/users/private/navigation_bar.dart';
 
 import 'package:tfc_versaofinal/utils/constants/sizes.dart';
 import 'package:tfc_versaofinal/utils/constants/text_strings.dart';
