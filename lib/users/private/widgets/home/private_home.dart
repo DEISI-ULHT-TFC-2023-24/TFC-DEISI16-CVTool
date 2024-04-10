@@ -15,10 +15,9 @@ class PrivateHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hi, Dionísio!', style: TextStyle(color: TFCColors.textWhite),),
+        title: const Text('Bem-vindo, Dionísio!', style: TextStyle(color: TFCColors.textWhite),),
         centerTitle: false,
         backgroundColor: Colors.blue[600],
-
         actions: [
           IconButton(
             icon: const Icon(Icons.logout, color: TFCColors.white),
