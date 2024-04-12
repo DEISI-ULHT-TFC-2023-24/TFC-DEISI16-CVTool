@@ -22,6 +22,12 @@ class LoginForm extends StatelessWidget {
           children: [
             // User
             TextFormField(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Introduza o seu primeiro nome';
+                }
+                return null;
+              },
               decoration: const InputDecoration(
                   prefixIcon: Icon(Iconsax.direct_right),
                   labelText: TFCTexts.username),

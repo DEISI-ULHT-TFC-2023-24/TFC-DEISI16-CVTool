@@ -71,78 +71,88 @@ class _OffersPageState extends State<PrivateOffersScreen> {
 
             // ListView
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.grey[300],
-                ),
-                padding: const EdgeInsets.all(15),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: display_list.length,
-                  itemBuilder: (context, index) => ListTile(
-                    contentPadding: const EdgeInsets.all(8.0),
-                    title: Text(
-                      display_list[index].job!,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+              child: display_list.isEmpty
+                  ? const Center(
+                      child: Text(
+                        "Sem resultados",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          display_list[index].company!,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Text(
-                          display_list[index].local!,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Row(children: [
-                          const Text(
-                            'Vagas: ',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                          Text(
-                            display_list[index].nrOffers!,
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.grey[300],
+                      ),
+                      padding: const EdgeInsets.all(15),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: display_list.length,
+                        itemBuilder: (context, index) => ListTile(
+                          contentPadding: const EdgeInsets.all(8.0),
+                          title: Text(
+                            display_list[index].job!,
                             style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 16,
                             ),
                           ),
-                        ]),
-                      ],
-                    ),
-                    trailing: TextButton(
-                      onPressed: () {},
-                      child: const Icon(
-                        Icons.arrow_forward_ios,
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                display_list[index].company!,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Text(
+                                display_list[index].local!,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Row(children: [
+                                const Text(
+                                  'Vagas: ',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                Text(
+                                  display_list[index].nrOffers!,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ]),
+                            ],
+                          ),
+                          trailing: TextButton(
+                            onPressed: () {},
+                            child: const Icon(
+                              Icons.arrow_forward_ios,
+                            ),
+                          ),
+                          leading: const Icon(
+                            Icons.work,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
                     ),
-                    leading: const Icon(
-                      Icons.work,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            )
+            ),
           ],
         ),
       ),
