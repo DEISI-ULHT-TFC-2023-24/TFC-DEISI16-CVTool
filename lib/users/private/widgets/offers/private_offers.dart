@@ -13,92 +13,17 @@ class PrivateOffersScreen extends StatefulWidget {
 
 class _OffersPageState extends State<PrivateOffersScreen> {
   // Dummy List
-  static List<OfferModel> main_offers_list = [
-    OfferModel(
-        author: "Jon Smith",
-        job: "Engenheiro Informático",
-        company: "LusoTrip.lda",
-        local: "Lisboa",
-        details: "Estamos à procura de alguém com grande capacidades.",
-        nrOffers: '10',
-        salary: 1350.0,
-        creationDate: DateTime.now()),
-    OfferModel(
-        author: "David Guetta",
-        job: "Técnico Informático",
-        company: "MusicWorld.lda",
-        local: "Porto",
-        details:
-            "Estamos à procura de alguém com grande capacidades e conhecimentos de música.",
-        nrOffers: '4',
-        salary: 2300.0,
-        creationDate: DateTime.now()),
-    OfferModel(
-        author: "Marta Jobson",
-        job: "Engenheiro Espacial",
-        company: "Nasa.lda",
-        local: "Aveiro",
-        details:
-            "Estamos à procura de alguém com grande capacidades e conhecimentos de música.",
-        nrOffers: '6',
-        salary: 2605.0,
-        creationDate: DateTime.now()),
-    OfferModel(
-        author: "Henrique Fonseca",
-        job: "Diretor Executivo de Marketing",
-        company: "PingoDoce.lda",
-        local: "Lisboa",
-        details:
-            "Estamos à procura de alguém com grande capacidades e conhecimentos de música.",
-        nrOffers: '15',
-        salary: 3900.0,
-        creationDate: DateTime.now()),
-    OfferModel(
-        author: "Henrique Fonseca",
-        job: "Diretor Executivo de Negocios",
-        company: "sss.lda",
-        local: "Lisboa",
-        details:
-            "Estamos à procura de alguém com grande capacidades e conhecimentos de música.",
-        nrOffers: '10',
-        salary: 3900.0,
-        creationDate: DateTime.now()),
-    OfferModel(
-        author: "Marcus Fonseca",
-        job: "Piloto de Fórmula 1",
-        company: "RedBull.lda",
-        local: "Lisboa",
-        details:
-            "Estamos à procura de alguém com grande capacidades e conhecimentos de música.",
-        nrOffers: '1',
-        salary: 10000.0,
-        creationDate: DateTime.now()),
-    OfferModel(
-        author: "Marta Peixe Fonseca",
-        company: "Alaba.lda",
-        job: "Professor de Artes",
-        local: "Lisboa",
-        details:
-            "Estamos à procura de alguém com grande capacidades e conhecimentos de música.",
-        nrOffers: '15',
-        salary: 8000.0,
-        creationDate: DateTime.now()),
-    OfferModel(
-        author: "Henrique Monte Seco",
-        job: "Diretor de Marketing",
-        company: "Aldi.lda",
-        local: "Lisboa",
-        details:
-            "Estamos à procura de alguém com grande capacidades e conhecimentos de música.",
-        nrOffers: '15',
-        salary: 2100.0,
-        creationDate: DateTime.now()),
-  ];
 
-  static List<OfferModel> display_list = List.from(main_offers_list);
+  static List<OfferModel> display_list = List.from(OfferModel.main_offers_list);
 
   void updateList(String value) {
     // This function will do the filter in our list.
+    setState(() {
+      display_list = OfferModel.main_offers_list
+          .where((element) =>
+              element.job!.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
   }
 
   @override
@@ -127,7 +52,9 @@ class _OffersPageState extends State<PrivateOffersScreen> {
             ),
             const SizedBox(height: 20),
 
+            // Search Bar
             TextField(
+              onChanged: (value) => updateList(value),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
@@ -136,7 +63,7 @@ class _OffersPageState extends State<PrivateOffersScreen> {
                   borderSide: BorderSide.none,
                 ),
                 hintText: "Ex.: Engenheiro Informático",
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 prefixIconColor: Colors.black,
               ),
             ),
@@ -145,8 +72,11 @@ class _OffersPageState extends State<PrivateOffersScreen> {
             // ListView
             Expanded(
               child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.grey[300],
+                ),
                 padding: const EdgeInsets.all(15),
-                color: Colors.grey[300],
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: display_list.length,
@@ -157,7 +87,7 @@ class _OffersPageState extends State<PrivateOffersScreen> {
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 17,
+                        fontSize: 16,
                       ),
                     ),
                     subtitle: Column(
@@ -198,6 +128,12 @@ class _OffersPageState extends State<PrivateOffersScreen> {
                           ),
                         ]),
                       ],
+                    ),
+                    trailing: TextButton(
+                      onPressed: () {},
+                      child: const Icon(
+                        Icons.arrow_forward_ios,
+                      ),
                     ),
                     leading: const Icon(
                       Icons.work,
