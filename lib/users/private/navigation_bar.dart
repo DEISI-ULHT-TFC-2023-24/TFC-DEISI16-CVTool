@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tfc_versaofinal/users/private/widgets/home/private_home.dart';
+import 'package:tfc_versaofinal/users/private/widgets/mail/private_mail.dart';
+import 'package:tfc_versaofinal/users/private/widgets/offers/private_offers.dart';
+import 'package:tfc_versaofinal/users/private/widgets/profile/private_profile.dart';
 import 'package:tfc_versaofinal/utils/constants/colors.dart';
 import 'package:tfc_versaofinal/utils/helpers/helper_functions.dart';
 
@@ -40,5 +43,5 @@ class NavigationBarMenu extends StatelessWidget {
 class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs; // Its a variable that is observed by the widget
 
-  final screens = [const PrivateHomeScreen(), Container(color: Colors.blue), Container(color: Colors.purple), Container(color: Colors.yellow)];
+  final screens = [const PrivateHomeScreen(), const PrivateMailScreen(), const PrivateOffersScreen(), const PrivateProfileScreen()];
 }
