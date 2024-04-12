@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/competences_tile.dart';
 import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/experiences_tile.dart';
 import '../../../../features/authentication/screens/login/login.dart';
@@ -65,10 +64,10 @@ class PrivateHomeScreen extends StatelessWidget {
                   const SizedBox(height: 10),
 
                   // Text about Competences
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Column(
+                      Column(
                         children: [
                           Text(
                             'Personalize as suas competências.',
@@ -78,14 +77,15 @@ class PrivateHomeScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                          Text(
+                            'Mostre o seu valor!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(30),
-                        child: const Icon(
-                          Icons.arrow_downward,
-                          color: Colors.white,
-                        ),
                       ),
                     ],
                   ),
@@ -115,6 +115,14 @@ class PrivateHomeScreen extends StatelessWidget {
                         job: 'Diretor de Recursos Humanos',
                         company: 'TESLA',
                       ),
+                      const PrivateExperiencesTile(
+                        job: 'Diretor de Recursos Humanos',
+                        company: 'TESLA',
+                      ),
+                      const PrivateExperiencesTile(
+                        job: 'Diretor de Recursos Humanos',
+                        company: 'TESLA',
+                      ),
                     ]),
 
                     // Header for Competences
@@ -129,6 +137,14 @@ class PrivateHomeScreen extends StatelessWidget {
                       ),
                       const PrivateCompetencesTile(
                         university: 'Universidade de Lisboa',
+                        curse: 'Mestrado em Engenharia Informática',
+                      ),
+                      const PrivateCompetencesTile(
+                        university: 'Universidade do técnico',
+                        curse: 'Mestrado em Engenharia Informática',
+                      ),
+                      const PrivateCompetencesTile(
+                        university: 'Universidade de Coimbra',
                         curse: 'Mestrado em Engenharia Informática',
                       ),
                     ]),

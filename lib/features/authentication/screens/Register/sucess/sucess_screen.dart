@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:tfc_versaofinal/common/styles/spacing_styles.dart';
 import 'package:tfc_versaofinal/features/authentication/screens/login/login.dart';
 import '../../../../../../utils/constants/image_strings.dart';

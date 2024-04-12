@@ -43,5 +43,5 @@ class NavigationBarMenu extends StatelessWidget {
 class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs; // Its a variable that is observed by the widget
 
-  final screens = [const PrivateHomeScreen(), const PrivateMailScreen(), const PrivateOffersScreen(), const PrivateProfileScreen()];
+  final screens = [const PrivateHomeScreen(), const PrivateOffersScreen(), const PrivateMailScreen(), const PrivateProfileScreen()];
 }

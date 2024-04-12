@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:tfc_versaofinal/features/authentication/controllers.onboarding/onboarding_controller.dart';
 import 'package:tfc_versaofinal/utils/constants/colors.dart';
 import 'package:tfc_versaofinal/utils/constants/sizes.dart';

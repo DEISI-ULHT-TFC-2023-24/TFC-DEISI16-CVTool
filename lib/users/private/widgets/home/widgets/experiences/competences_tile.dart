@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tfc_versaofinal/utils/constants/colors.dart';
 
-import '../../../../../../utils/constants/image_strings.dart';
 
 class PrivateCompetencesTile extends StatelessWidget {
   final String university;
@@ -30,7 +28,7 @@ class PrivateCompetencesTile extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     color: TFCColors.primary,
                     child: const Icon(
                       Icons.school,
