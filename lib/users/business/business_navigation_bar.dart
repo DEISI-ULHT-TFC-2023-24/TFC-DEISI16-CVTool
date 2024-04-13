@@ -1,33 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:tfc_versaofinal/users/private/widgets/mail/private_mail.dart';
-import 'package:tfc_versaofinal/users/private/widgets/offers/private_offers.dart';
-import 'package:tfc_versaofinal/utils/constants/colors.dart';
+import '../../utils/constants/colors.dart';
+
+import 'package:tfc_versaofinal/users/business/models/business_user_model.dart';
+import 'package:tfc_versaofinal/users/business/widgets/business/business_empresa.dart';
+import 'package:tfc_versaofinal/users/business/widgets/home/business_home.dart';
+import 'package:tfc_versaofinal/users/business/widgets/offers/business_ofertas.dart';
+import 'package:tfc_versaofinal/users/business/widgets/profile/business_profile.dart';
 import 'package:tfc_versaofinal/utils/helpers/helper_functions.dart';
 
+
 class BusinessNavigationBarMenu extends StatelessWidget {
-  const BusinessNavigationBarMenu({super.key});
+  final BusinessUser? user;
+
+  const BusinessNavigationBarMenu({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(BusinessNavigationController());
+    final controller = Get.put(BusinessNavigationController(user: user));
     final dark = TFCHelperFunctions.isDarkMode(context);
 
-    // This method allows to only redraw the navigation bar, increasing performance
     return Scaffold(
       bottomNavigationBar: Obx(
             () => NavigationBar(
           height: 80,
           elevation: 0,
           selectedIndex: controller.selectedIndex.value,
-          onDestinationSelected: (index) => controller.selectedIndex.value = index,
-          backgroundColor: dark ? TFCColors.white.withOpacity(0.1) : TFCColors.black.withOpacity(0.1),
-
+          onDestinationSelected: (index) =>
+          controller.selectedIndex.value = index,
+          backgroundColor: dark
+              ? TFCColors.white.withOpacity(0.1)
+              : TFCColors.black.withOpacity(0.1),
           destinations: const [
-            NavigationDestination(icon: Icon(Iconsax.home1), label: 'Menu'),
-            NavigationDestination(icon: Icon(Icons.search), label: 'Ofertas'),
-            NavigationDestination(icon: Icon(Icons.mail), label: 'Correio'),
+            NavigationDestination(icon: Icon(Icons.home), label: 'Menu'),
+            NavigationDestination(icon: Icon(Icons.handshake), label: 'Ofertas'),
+            NavigationDestination(icon: Icon(Icons.house), label: 'Empresa'),
             NavigationDestination(icon: Icon(Icons.person), label: 'Perfil'),
           ],
         ),
@@ -39,7 +46,16 @@ class BusinessNavigationBarMenu extends StatelessWidget {
 
 // Class that is responsible by the Navigation Bar index
 class BusinessNavigationController extends GetxController {
-  final Rx<int> selectedIndex = 0.obs; // Its a variable that is observed by the widget
+  final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [const PrivateOffersScreen(), const PrivateOffersScreen(), const PrivateMailScreen(), const PrivateMailScreen()];
+  late final List<Widget> screens;
+
+  BusinessNavigationController({required BusinessUser? user}) {
+    screens = [
+      BusinessHomeScreen(user: user!),
+      BusinessOffersScreen(),
+      BusinessScreen(),
+      BusinessProfileScreen(),
+    ];
+  }
 }

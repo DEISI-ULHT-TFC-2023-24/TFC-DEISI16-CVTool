@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/competences_tile.dart';
-import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/experiences_tile.dart';
 import '../../../../features/authentication/screens/login/login.dart';
 import '../../models/private_user_model.dart';
 
@@ -82,48 +80,14 @@ class PrivateHomeScreen extends StatelessWidget {
                     const SizedBox(height: 10),
 
                     // List of Experiences
-                    _buildExperienceList([
-                      const PrivateExperiencesTile(
-                        job: 'Diretor de Segurança Informática',
-                        company: 'IBM - USA',
-                      ),
-                      const PrivateExperiencesTile(
-                        job: 'Diretor de Recursos Humanos',
-                        company: 'TESLA',
-                      ),
-                      const PrivateExperiencesTile(
-                        job: 'Diretor de Recursos Humanos',
-                        company: 'TESLA',
-                      ),
-                      const PrivateExperiencesTile(
-                        job: 'Diretor de Recursos Humanos',
-                        company: 'TESLA',
-                      ),
-                    ]),
+
 
                     // Header for Competences
                     _buildHeader('Competências'),
                     const SizedBox(height: 5),
 
                     // Another List
-                    _buildExperienceList([
-                      const PrivateCompetencesTile(
-                        university: 'Universidade Lusofona',
-                        curse: 'Licenciatura Engenharia Informática',
-                      ),
-                      const PrivateCompetencesTile(
-                        university: 'Universidade de Lisboa',
-                        curse: 'Mestrado em Engenharia Informática',
-                      ),
-                      const PrivateCompetencesTile(
-                        university: 'Universidade do técnico',
-                        curse: 'Mestrado em Engenharia Informática',
-                      ),
-                      const PrivateCompetencesTile(
-                        university: 'Universidade de Coimbra',
-                        curse: 'Mestrado em Engenharia Informática',
-                      ),
-                    ]),
+
                   ],
                 ),
               ),
@@ -159,16 +123,5 @@ Widget _buildHeader(String title) {
         ),
       ),
     ],
-  );
-}
-
-Widget _buildExperienceList(List<Widget> experiences) {
-  return Expanded(
-    child: ListView.builder(
-      itemCount: experiences.length,
-      itemBuilder: (context, index) {
-        return experiences[index];
-      },
-    ),
   );
 }

@@ -93,9 +93,6 @@ class _LoginFormState extends State<LoginForm> {
                     final String enteredUsername = _usernameController.text;
                     final String enteredPassword = _passwordController.text;
 
-                    // Check if the username and password match in main_business_users
-                    bool isBusinessUser = BusinessUser.main_business_users.any((user) =>
-                    user.username == enteredUsername && user.password == enteredPassword);
 
                     // Find the PrivateUser
                     PrivateUser? privateUser;
@@ -106,9 +103,18 @@ class _LoginFormState extends State<LoginForm> {
                       }
                     }
 
-                    if (isBusinessUser) {
-                      BusinessUser? user = BusinessUser.getBusinessUserByUsername(enteredUsername);
-                      Get.to(() => const BusinessNavigationBarMenu());
+                    // Find the BusinessUser
+                    BusinessUser? businessUser;
+                    for (var user in BusinessUser.main_business_users) {
+                      if (user.username == enteredUsername && user.password == enteredPassword) {
+                        businessUser = user;
+                        break;
+                      }
+                    }
+
+                    if (businessUser != null) {
+                      BusinessUser? businessUser = BusinessUser.getBusinessUserByUsername(enteredUsername);
+                      Get.to(() => BusinessNavigationBarMenu(user: businessUser));
 
                     } else if (privateUser != null) {
                       PrivateUser? privateUser = PrivateUser.getPrivateUserByUsername(enteredUsername);

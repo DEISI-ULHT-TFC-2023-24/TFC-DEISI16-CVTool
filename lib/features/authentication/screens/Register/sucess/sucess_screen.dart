@@ -10,7 +10,13 @@ import '../../../../../../utils/helpers/helper_functions.dart';
 
 
 class SucessScreen extends StatelessWidget {
-  const SucessScreen({super.key, required PrivateUser user});
+  const SucessScreen({super.key, required this.user});
+
+  final PrivateUser user;
+
+  void saveUser() {
+    PrivateUser.main_private_users.add(user);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,16 @@ class SucessScreen extends StatelessWidget {
             Text(TFCTexts.sucessSubTitle, style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center),
             const SizedBox(height: TFCSizes.spaceBtwSections),
               // Button
-              SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const LoginScreen()), child: const Text(TFCTexts.continueMsg),))
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    saveUser();
+                    Get.to(() => const LoginScreen());
+                  },
+                  child: const Text(TFCTexts.continueMsg),
+                ),
+              )
             ],
           ),
         ),
