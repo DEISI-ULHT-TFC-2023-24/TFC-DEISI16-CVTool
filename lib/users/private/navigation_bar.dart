@@ -54,7 +54,7 @@ class NavigationController extends GetxController {
       PrivateHomeScreen(user: user!),
       PrivateOffersScreen(),
       PrivateMailScreen(),
-      PrivateProfileScreen(),
+      PrivateProfileScreen(user: user),
     ];
   }
 }

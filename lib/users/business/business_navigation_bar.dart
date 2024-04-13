@@ -42,5 +42,5 @@ class BusinessNavigationBarMenu extends StatelessWidget {
 class BusinessNavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs; // Its a variable that is observed by the widget
 
-  final screens = [const PrivateOffersScreen(), const PrivateOffersScreen(), const PrivateMailScreen(), const PrivateProfileScreen()];
+  final screens = [const PrivateOffersScreen(), const PrivateOffersScreen(), const PrivateMailScreen(), const PrivateMailScreen()];
 }

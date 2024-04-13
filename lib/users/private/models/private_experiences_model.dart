@@ -1,9 +1,7 @@
 // Private Experiences class model
-import 'package:flutter/material.dart';
 
 class PrivateExperiences {
   String name;
-  Icon icon = const Icon(Icons.shield);
   String company;
   String description;
   DateTime date;
@@ -14,4 +12,9 @@ class PrivateExperiences {
     required this.description,
     required this.date,
   });
+
+  static List<PrivateExperiences> main_skill = [
+    PrivateExperiences(name: "Diretor de Segurança Informática", company: "IBM - USA", description: "Estamos à procura de seniors.", date: DateTime(2024,07,01)),
+    PrivateExperiences(name: "Diretor de Recursos Humanos", company: "Tesla", description: "Estamos à procura de seniors.", date: DateTime(2024,07,01)),
+  ];
 }

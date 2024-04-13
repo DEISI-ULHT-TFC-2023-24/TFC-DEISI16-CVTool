@@ -42,7 +42,7 @@ class _OffersPageState extends State<PrivateMailScreen> {
         elevation: 0.0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
