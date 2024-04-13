@@ -23,4 +23,13 @@ class BusinessUser {
     BusinessUser(name: "Recrutador Teste", email: "RecrutadorTeste@teste.com", username: "Test", password: "test2024*", phoneNumber: "962821351", job: "Engenheiro de testes"),
   ];
 
+  static BusinessUser? getBusinessUserByUsername(String username) {
+    BusinessUser? user;
+    try {
+      user = main_business_users.firstWhere((user) => user.username == username);
+    } catch (e) {
+      user = null; // Set user to null if no user is found
+    }
+    return user;
+  }
 }

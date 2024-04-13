@@ -26,4 +26,13 @@ class PrivateUser {
     PrivateUser(name: "Testador App", email: "teste@teste.com", username: "Test", password: "test2024*", phoneNumber: "962821351", job: "Engenheiro de testes"),
   ];
 
+  static PrivateUser? getPrivateUserByUsername(String username) {
+    PrivateUser? user;
+    try {
+      user = main_private_users.firstWhere((user) => user.username == username);
+    } catch (e) {
+      user = null; // Set user to null if no user is found
+    }
+    return user;
+  }
 }

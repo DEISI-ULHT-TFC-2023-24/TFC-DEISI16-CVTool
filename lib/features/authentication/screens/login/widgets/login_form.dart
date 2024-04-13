@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tfc_versaofinal/utils/constants/sizes.dart';
 import 'package:tfc_versaofinal/utils/constants/text_strings.dart';
+import '../../../../../users/business/business_navigation_bar.dart';
 import '../../../../../users/business/models/business_user_model.dart';
 import '../../../../../users/private/models/private_user_model.dart';
 import '../../../../../users/private/navigation_bar.dart';
@@ -19,6 +21,7 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late final PrivateUser? user;
 
   @override
   Widget build(BuildContext context) {
@@ -94,14 +97,23 @@ class _LoginFormState extends State<LoginForm> {
                     bool isBusinessUser = BusinessUser.main_business_users.any((user) =>
                     user.username == enteredUsername && user.password == enteredPassword);
 
-                    // Check if the username and password match in main_private_users
-                    bool isPrivateUser = PrivateUser.main_private_users.any((user) =>
-                    user.username == enteredUsername && user.password == enteredPassword);
+                    // Find the PrivateUser
+                    PrivateUser? privateUser;
+                    for (var user in PrivateUser.main_private_users) {
+                      if (user.username == enteredUsername && user.password == enteredPassword) {
+                        privateUser = user;
+                        break;
+                      }
+                    }
 
                     if (isBusinessUser) {
-                      Get.to(() => const NavigationBarMenu());
-                    } else if (isPrivateUser) {
-                      Get.to(() => const NavigationBarMenu());
+                      BusinessUser? user = BusinessUser.getBusinessUserByUsername(enteredUsername);
+                      Get.to(() => const BusinessNavigationBarMenu());
+
+                    } else if (privateUser != null) {
+                      PrivateUser? privateUser = PrivateUser.getPrivateUserByUsername(enteredUsername);
+                      Get.to(() => NavigationBarMenu(user: privateUser));
+
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -131,3 +143,4 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 }
+

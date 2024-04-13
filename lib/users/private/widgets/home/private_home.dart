@@ -3,9 +3,12 @@ import 'package:get/get.dart';
 import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/competences_tile.dart';
 import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/experiences_tile.dart';
 import '../../../../features/authentication/screens/login/login.dart';
+import '../../models/private_user_model.dart';
 
 class PrivateHomeScreen extends StatelessWidget {
-  const PrivateHomeScreen({Key? key});
+  const PrivateHomeScreen({super.key, required this.user});
+
+  final PrivateUser user;
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +26,23 @@ class PrivateHomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // Username
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Olá, Dionísio!',
-                            style: TextStyle(
+                            user.name,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 6,
                           ),
                           Text(
-                            'Engenheiro Informático',
-                            style: TextStyle(color: Colors.white54),
+                            user.job,
+                            style: const TextStyle(color: Colors.white54),
                           ),
                         ],
                       ),
@@ -62,33 +65,6 @@ class PrivateHomeScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 10),
-
-                  // Text about Competences
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            'Personalize as suas competências.',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Mostre o seu valor!',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
@@ -159,41 +135,40 @@ class PrivateHomeScreen extends StatelessWidget {
   }
 }
 
-  // Extra Widgets
-  Widget _buildHeader(String title) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+// Extra Widgets
+Widget _buildHeader(String title) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        title,
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
         ),
-        TextButton(
-          onPressed: () {},
-          child: Container(
-            padding: const EdgeInsets.all(5),
-            child: const Icon(
-              Icons.add,
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildExperienceList(List<Widget> experiences) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: experiences.length,
-        itemBuilder: (context, index) {
-          return experiences[index];
-        },
       ),
-    );
-  }
+      TextButton(
+        onPressed: () {},
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          child: const Icon(
+            Icons.add,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    ],
+  );
+}
 
+Widget _buildExperienceList(List<Widget> experiences) {
+  return Expanded(
+    child: ListView.builder(
+      itemCount: experiences.length,
+      itemBuilder: (context, index) {
+        return experiences[index];
+      },
+    ),
+  );
+}
