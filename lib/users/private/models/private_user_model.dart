@@ -9,7 +9,6 @@ class PrivateUser {
   String password;
   String phoneNumber;
   String job;
-  DateTime birthday;
   List<PrivateExperiences>? experiences = [];
   List<PrivateSkill>? skills = [];
 
@@ -20,12 +19,11 @@ class PrivateUser {
     required this.password,
     required this.phoneNumber,
     required this.job,
-    required this.birthday,
   });
 
   static List<PrivateUser> main_private_users = [
-    PrivateUser(name: "Dionísio Miron", email: "admin@gmail.com", username: "admin", password: "Admin123!", phoneNumber: "962821351", job: "Engenheiro Informático", birthday: DateTime(2002, 6, 30)),
-    PrivateUser(name: "Testador App", email: "teste@teste.com", username: "Test", password: "test2024*", phoneNumber: "962821351", job: "Engenheiro de testes", birthday: DateTime(2002, 6, 30)),
+    PrivateUser(name: "Dionísio Miron", email: "admin@gmail.com", username: "admin", password: "Admin123!", phoneNumber: "962821351", job: "Engenheiro Informático"),
+    PrivateUser(name: "Testador App", email: "teste@teste.com", username: "Test", password: "test2024*", phoneNumber: "962821351", job: "Engenheiro de testes"),
   ];
 
 }

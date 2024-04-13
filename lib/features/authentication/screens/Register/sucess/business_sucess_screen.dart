@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tfc_versaofinal/common/styles/spacing_styles.dart';
 import 'package:tfc_versaofinal/features/authentication/screens/login/login.dart';
-import 'package:tfc_versaofinal/users/private/models/private_user_model.dart';
 import '../../../../../../utils/constants/image_strings.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/constants/text_strings.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
+import '../../../../../users/business/models/business_user_model.dart';
 
 
-class SucessScreen extends StatelessWidget {
-  const SucessScreen({super.key, required PrivateUser user});
+class BusinessSucessScreen extends StatelessWidget {
+  const BusinessSucessScreen({super.key, required BusinessUser user});
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +20,15 @@ class SucessScreen extends StatelessWidget {
           padding: TFCSpacingStyles.paddingWithAppBarHeight * 2,
           child: Column(
             children: [
-            // Top Image
-            Image(image: const AssetImage(TFCImages.sucessImage1), width: TFCHelperFunctions.screenWidth() * 0.6),
-            const SizedBox(height: TFCSizes.spaceBtwItems),
+              // Top Image
+              Image(image: const AssetImage(TFCImages.sucessImage1), width: TFCHelperFunctions.screenWidth() * 0.6),
+              const SizedBox(height: TFCSizes.spaceBtwItems),
 
-            // Title and Subtitle
-            Text(TFCTexts.sucessTitle, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
-            const SizedBox(height: TFCSizes.spaceBtwItems),
-            Text(TFCTexts.sucessSubTitle, style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center),
-            const SizedBox(height: TFCSizes.spaceBtwSections),
+              // Title and Subtitle
+              Text(TFCTexts.sucessTitle, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
+              const SizedBox(height: TFCSizes.spaceBtwItems),
+              Text(TFCTexts.sucessSubTitle, style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center),
+              const SizedBox(height: TFCSizes.spaceBtwSections),
               // Button
               SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const LoginScreen()), child: const Text(TFCTexts.continueMsg),))
             ],
