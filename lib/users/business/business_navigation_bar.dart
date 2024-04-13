@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tfc_versaofinal/users/private/widgets/mail/private_mail.dart';
 import 'package:tfc_versaofinal/users/private/widgets/offers/private_offers.dart';
-import 'package:tfc_versaofinal/users/private/widgets/profile/private_profile.dart';
 import 'package:tfc_versaofinal/utils/constants/colors.dart';
 import 'package:tfc_versaofinal/utils/helpers/helper_functions.dart';
 
