@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../../utils/constants/colors.dart';
 
 import 'package:tfc_versaofinal/users/business/models/business_user_model.dart';
-import 'package:tfc_versaofinal/users/business/widgets/business/business_empresa.dart';
 import 'package:tfc_versaofinal/users/business/widgets/home/business_home.dart';
 import 'package:tfc_versaofinal/users/business/widgets/offers/business_ofertas.dart';
 import 'package:tfc_versaofinal/users/business/widgets/profile/business_profile.dart';
@@ -34,7 +33,6 @@ class BusinessNavigationBarMenu extends StatelessWidget {
           destinations: const [
             NavigationDestination(icon: Icon(Icons.home), label: 'Menu'),
             NavigationDestination(icon: Icon(Icons.handshake), label: 'Ofertas'),
-            NavigationDestination(icon: Icon(Icons.house), label: 'Empresa'),
             NavigationDestination(icon: Icon(Icons.person), label: 'Perfil'),
           ],
         ),
@@ -53,9 +51,8 @@ class BusinessNavigationController extends GetxController {
   BusinessNavigationController({required BusinessUser? user}) {
     screens = [
       BusinessHomeScreen(user: user!),
-      BusinessOffersScreen(),
-      BusinessScreen(),
-      BusinessProfileScreen(),
+      BusinessOffersScreen(user: user),
+      BusinessProfileScreen(user: user),
     ];
   }
 }

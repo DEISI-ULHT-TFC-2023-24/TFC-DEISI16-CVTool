@@ -1,4 +1,8 @@
 // This is the Business User Data Model
+import 'package:tfc_versaofinal/users/business/models/business_experiences_model.dart';
+
+import '../../private/models/offer_model.dart';
+
 class BusinessUser {
   String name;
   String email;
@@ -7,6 +11,8 @@ class BusinessUser {
   String phoneNumber;
   String job;
   String? company;
+  List<OfferModel> offers = [];
+  List<BusinessExperiences> experiences = BusinessExperiences.main_skill_test;
 
   BusinessUser({
     required this.name,
@@ -31,5 +37,13 @@ class BusinessUser {
       user = null; // Set user to null if no user is found
     }
     return user;
+  }
+
+  void addOfferToBusinessUser(OfferModel offer) {
+    offers.add(offer);
+  }
+
+  void addExperiences(BusinessExperiences experience) {
+    experiences.add(experience);
   }
 }

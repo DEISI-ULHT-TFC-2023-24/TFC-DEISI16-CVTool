@@ -9,7 +9,7 @@ class PrivateUser {
   String password;
   String phoneNumber;
   String job;
-  List<PrivateExperiences>? experiences = [];
+  List<PrivateExperiences>? experiences = PrivateExperiences.main_Experiences;
   List<PrivateSkill>? skills = [];
 
   PrivateUser({

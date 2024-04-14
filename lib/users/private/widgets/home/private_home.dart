@@ -1,15 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../features/authentication/screens/login/login.dart';
-import '../../models/private_user_model.dart';
+import 'package:tfc_versaofinal/features/authentication/screens/login/login.dart';
+import 'package:tfc_versaofinal/users/private/models/private_user_model.dart';
+
+import '../../models/private_experiences_model.dart';
+import '../../models/private_skills_model.dart';
 
 class PrivateHomeScreen extends StatelessWidget {
-  const PrivateHomeScreen({super.key, required this.user});
+  const PrivateHomeScreen({Key? key, required this.user}) : super(key: key);
 
   final PrivateUser user;
 
   @override
   Widget build(BuildContext context) {
+    final List<PrivateSkill> skills = user.skills ?? [];
+    final List<PrivateExperiences> experiences = user.experiences ?? [];
+
     return Scaffold(
       backgroundColor: Colors.blue[600],
       body: SafeArea(
@@ -47,7 +54,10 @@ class PrivateHomeScreen extends StatelessWidget {
 
                       // Leave Icon
                       TextButton(
-                        onPressed: () => Get.to(() => const LoginScreen()),
+                        onPressed: () {
+                          // Implement logout functionality
+                          Get.to(() => const LoginScreen());
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.blue[400],
@@ -68,29 +78,67 @@ class PrivateHomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 5),
 
+            const Padding(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                children: [
+                  Text('Experiências',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             // Divider
             Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(25),
-                color: Colors.grey[300],
-                child: Column(
-                  children: [
-                    // Header for Experiences
-                    _buildHeader('Experiencias'),
-                    const SizedBox(height: 10),
-
-                    // List of Experiences
-
-
-                    // Header for Competences
-                    _buildHeader('Competências'),
-                    const SizedBox(height: 5),
-
-                    // Another List
-
-                  ],
-                ),
-              ),
+              child: experiences.isEmpty
+                  ? const Center(
+                      child: Text(
+                        "Sem resultados",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.grey[300],
+                      ),
+                      padding: const EdgeInsets.all(15),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: experiences.length,
+                        itemBuilder: (context, index) => ListTile(
+                          contentPadding: const EdgeInsets.all(8.0),
+                          title: Text(
+                            experiences[index].name,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          subtitle: Text(
+                            experiences[index].company,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
+                          leading: const Icon(
+                            Icons.work,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
             ),
           ],
         ),
