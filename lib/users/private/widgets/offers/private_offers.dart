@@ -9,7 +9,7 @@ import '../home/widgets/private_offer_page.dart';
 class PrivateOffersScreen extends StatefulWidget {
   final PrivateUser user; // Define user variable
 
-  const PrivateOffersScreen({Key? key, required this.user}) : super(key: key);
+  const PrivateOffersScreen({super.key, required this.user});
 
   @override
   State<PrivateOffersScreen> createState() => _OffersPageState();
