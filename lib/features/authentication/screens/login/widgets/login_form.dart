@@ -22,6 +22,7 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late final PrivateUser? user;
+  bool isObscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -49,17 +50,26 @@ class _LoginFormState extends State<LoginForm> {
             // Password
             TextFormField(
               controller: _passwordController,
-              obscureText: true,
+              obscureText: isObscurePassword, // Use the variable to control password visibility
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Introduza a sua palavra-passe';
                 }
                 return null;
               },
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 prefixIcon: Icon(Iconsax.password_check),
                 labelText: TFCTexts.password,
-                suffixIcon: Icon(Iconsax.eye_slash),
+                // Change the suffix icon based on password visibility
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    // Toggle the password visibility when the button is pressed
+                    setState(() {
+                      isObscurePassword = !isObscurePassword;
+                    });
+                  },
+                  icon: Icon(isObscurePassword ? Iconsax.eye_slash : Iconsax.eye),
+                ),
               ),
             ),
             const SizedBox(height: TFCSizes.spaceBtwInputFields),
