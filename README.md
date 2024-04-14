@@ -1,3 +1,5 @@
+# After this Introduction section you have the project setup help.
+
 # Project
 Name: TMS(Talent Management System)
 
@@ -20,8 +22,6 @@ Problems in the company recruitment process:
 
 So I applied myself to this job to show that I can combat a real problem, that I can do a project that can shape my professional career and also make a difference.
 After a long wait, Professor Rui Ribeiro accepted my proposal and awarded me the job.
-
-
 
 # Special Thanks and mentions
 As the developer of this solution, I have to say that it wasn't an easy task, but I didn't give up and 
@@ -50,5 +50,74 @@ it was thanks to him that I took the initiative to become a better student.
 -> (Expert)(Youtuber) Coding With T - https://www.youtube.com/@CodingwithT - Experienced Dart programmer who helped me understand Flutter and have good practices and organization in my projects.
 -> (Expert)(Youtuber) Net Ninja - https://www.youtube.com/@NetNinja - Experienced programmer in several programming languages, someone who knows how to explain things effectively and who can keep up with the times.
 
+
+# ---------------
+# Project Setup (PT)
+Deve ter Git ou GitHub app no computador.
+
+Inicialmente basta seguir este tutorial, que se encontra disponível no seguinte link:
+https://www.youtube.com/watch?v=X4iEy_wBxho&ab_channel=DeveloperRitesh
+(Não se esqueça de deixar like :D)
+
+Problemas com Dark.sdk:
+https://www.youtube.com/watch?v=jTdNT35TKVE&ab_channel=Goodknowledge
+(Não se esqueça de deixar like :D)
+
+O computador deve estar no modo programador, devido à criação de uma native splash screen.
+Para tal deve ir às definições do windows -> procurar "programador" -> selecionar a opção "Utilizar as funcionalidades de programador" e ligar o "Modo Programador".
+(Desta maneira pode descarregar o splash screen).
+
+
+Após conclusão do tutorial acima, basta criar: New -> Project from version Control... -> Colar o https do projeto.
+
+Depois disso abra as seguinte pastas no Project:
+lib -> main.dart
+![img.png](img.png)
+
+Selecione Update Depedencies e Get Depedencies.
+
+Depois crie um telemóvel seguindo este tutorial:
+https://www.youtube.com/watch?v=q-3r85fl-g4&ab_channel=LazyTechNo
+
+E para terminar dê Run'main.dart'.
+
+
+# Project Setup (EN)
+You must have a Git or GitHub app on your computer.
+
+Initially, just follow this tutorial, which is available at the following link:
+https://www.youtube.com/watch?v=X4iEy_wBxho&ab_channel=DeveloperRitesh
+(Don't forget to leave a like :D)
+
+Problems with Dark.sdk:
+https://www.youtube.com/watch?v=jTdNT35TKVE&ab_channel=Goodknowledge
+(Don't forget to leave a like :D)
+
+The computer must be in programmer mode, due to the creation of a native splash screen.
+To do this, go to windows settings -> search for "developer" -> select the option "Use developer features" and turn on "Developer mode".
+(This way you can download the splash screen).
+
+
+Once you have completed the above tutorial, simply create: New -> Project from version Control... -> Paste the project https.
+
+Then open the following folders in the Project:
+lib -> main.dart
+![img.png](img.png)
+
+Select Update Depedencies and Get Depedencies.
+
+Then create a cell phone following this tutorial:
+https://www.youtube.com/watch?v=q-3r85fl-g4&ab_channel=LazyTechNo
+
+And to finish Run'main.dart'.
+
+
+# Notas para testers
+User particular Root -> username:'admin' password:'Admin123!'.
+User empresarial Root -> username:'Rui' password:'Rui123!'.
+
+Tambem pode criar o seu próprio User.
+
+Enjoy and have fun ;)
 
 
