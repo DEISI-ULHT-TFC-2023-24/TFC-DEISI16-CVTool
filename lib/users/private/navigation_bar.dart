@@ -51,7 +51,7 @@ class NavigationController extends GetxController {
   NavigationController({required PrivateUser? user}) {
     screens = [
       PrivateHomeScreen(user: user!),
-      const PrivateOffersScreen(),
+      PrivateOffersScreen(user: user),
       const PrivateMailScreen(),
       PrivateProfileScreen(user: user),
     ];
