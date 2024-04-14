@@ -42,7 +42,7 @@ class _LoginFormState extends State<LoginForm> {
               },
               decoration: const InputDecoration(
                   prefixIcon: Icon(Iconsax.direct_right),
-                  labelText: TFCTexts.username),
+                  labelText: TFCTexts.username)
             ),
             const SizedBox(height: TFCSizes.spaceBtwInputFields),
 
