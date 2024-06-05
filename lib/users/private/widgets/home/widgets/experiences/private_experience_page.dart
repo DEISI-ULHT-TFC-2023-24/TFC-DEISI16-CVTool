@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import '../../../models/private_experiences_model.dart';
-import '../../../models/private_user_model.dart';
+import '../../../../models/private_experiences_model.dart';
+import '../../../../models/private_user_model.dart';
 
 
 class PrivateExperiencePage extends StatelessWidget {

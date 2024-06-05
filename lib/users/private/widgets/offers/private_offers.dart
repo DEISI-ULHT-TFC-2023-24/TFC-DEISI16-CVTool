@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../models/offer_model.dart';
 import '../../models/private_user_model.dart';
-import '../home/widgets/private_offer_page.dart';
+import 'private_offer_page.dart';
 
 class PrivateOffersScreen extends StatefulWidget {
   final PrivateUser user; // Define user variable

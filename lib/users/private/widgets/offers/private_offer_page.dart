@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../models/offer_model.dart';
-import '../../../models/private_user_model.dart';
+import '../../models/offer_model.dart';
+import '../../models/private_user_model.dart';
 
 class PrivateOfferPage extends StatelessWidget {
   final List<OfferModel> offer;

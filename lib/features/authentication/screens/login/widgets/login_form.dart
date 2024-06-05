@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tfc_versaofinal/utils/constants/sizes.dart';
 import 'package:tfc_versaofinal/utils/constants/text_strings.dart';
@@ -8,10 +7,11 @@ import '../../../../../users/business/business_navigation_bar.dart';
 import '../../../../../users/business/models/business_user_model.dart';
 import '../../../../../users/private/models/private_user_model.dart';
 import '../../../../../users/private/navigation_bar.dart';
+import '../../recovery/recover_pass.dart';
 import '../../register/private/signup.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({super.key});
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -58,7 +58,7 @@ class _LoginFormState extends State<LoginForm> {
                 return null;
               },
               decoration: InputDecoration(
-                prefixIcon: Icon(Iconsax.password_check),
+                prefixIcon: const Icon(Iconsax.password_check),
                 labelText: TFCTexts.password,
                 // Change the suffix icon based on password visibility
                 suffixIcon: IconButton(
@@ -87,7 +87,12 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 // Forget Password
                 TextButton(
-                  onPressed: (){},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RecoveryScreen()),
+                    );
+                  },
                   child: const Text(TFCTexts.forgetPassword),
                 ),
               ],

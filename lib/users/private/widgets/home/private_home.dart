@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/new_private_experience.dart';
 import '../../models/private_user_model.dart';
 
 import 'package:tfc_versaofinal/users/private/models/private_experiences_model.dart';
-import 'package:tfc_versaofinal/users/private/widgets/home/widgets/private_experience_page.dart';
+import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/private_experience_page.dart';
 import '../../../../features/authentication/screens/login/login.dart';
 
 
@@ -171,72 +172,82 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                         ),
                       ),
                     ),
+                    // List of Skills
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Competencias',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewPrivateExperienceScreen(_addExperience)));
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(5),
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.grey[300],
+                        ),
+                        padding: const EdgeInsets.all(15),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: experiences.length,
+                          itemBuilder: (context, index) => ListTile(
+                            contentPadding: const EdgeInsets.all(8.0),
+                            title: Text(
+                              experiences[index].name,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  experiences[index].company,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            trailing: const Icon(
+                              Icons.arrow_forward_ios,
+                            ),
+                            leading: const Icon(
+                              Icons.workspace_premium,
+                              color: Colors.black,
+                            ),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivateExperiencePage(experience: experiences, user: widget.user)));
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class NewPrivateExperienceScreen extends StatefulWidget {
-  final Function(PrivateExperiences) addExperience;
-
-  const NewPrivateExperienceScreen(this.addExperience);
-
-  @override
-  _NewExperienceScreenState createState() => _NewExperienceScreenState();
-}
-
-class _NewExperienceScreenState extends State<NewPrivateExperienceScreen> {
-  late String _name;
-  late String _company;
-  late String _description;
-
-  @override
-  void initState() {
-    super.initState();
-    _name = '';
-    _company = '';
-    _description = '';
-  }
-
-  void _submitExperience() {
-    widget.addExperience(PrivateExperiences(name: _name, company: _company, description: _description, date: DateTime.now()));
-    Navigator.pop(context);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Adicionar nova Experiência'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(
-              onChanged: (value) => setState(() => _name = value),
-              decoration: const InputDecoration(labelText: 'Nome'),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              onChanged: (value) => setState(() => _company = value),
-              decoration: const InputDecoration(labelText: 'Empresa'),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              onChanged: (value) => setState(() => _description = value),
-              decoration: const InputDecoration(labelText: 'Descrição'),
-            ),
-            ElevatedButton(
-              onPressed: _submitExperience,
-              child: const Text('Adicionar'),
             ),
           ],
         ),
