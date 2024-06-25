@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tfc_versaofinal/repository/business_user_repository.dart';
 import 'package:tfc_versaofinal/repository/normal_user_repository.dart';
 import 'package:tfc_versaofinal/test/test_detail_page.dart';
+import '../models/business_user.dart';
 import '../models/normal_user.dart';
 
 class NormalUserInfoTest extends StatefulWidget {
@@ -13,16 +15,16 @@ class NormalUserInfoTest extends StatefulWidget {
 }
 
 class _NormalUserInfoTestState extends State<NormalUserInfoTest> {
-  List<NormalUser> normalUsers = [];
+  List<BusinessUser> businessUsers = [];
 
   @override
   Widget build(BuildContext context) {
     //Variables
-    final repository = context.read<NormalUserRepository>();
+    final repository = context.read<BusinessUserRepository>();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Normal User Test'),),
-      body: normalUsers.isEmpty ? buildNormalUserButton(repository) : buildList(),
+      body: businessUsers.isEmpty ? buildNormalUserButton(repository) : buildList(),
     );
   }
 
@@ -31,24 +33,24 @@ class _NormalUserInfoTestState extends State<NormalUserInfoTest> {
     return ListView.separated(
       itemBuilder: (_, index) => ListTile(
           leading: const Icon(Icons.man),
-          title: Text(normalUsers[index].name),
+          title: Text(businessUsers[index].name),
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      UserDetailsPage(userId: normalUsers[index].id)))),
+                      UserDetailsPage(userId: businessUsers[index].id)))),
       separatorBuilder: (_, index) =>
           const Divider(color: Colors.grey, thickness: 0.5),
-      itemCount: normalUsers.length,
+      itemCount: businessUsers.length,
     );
   }
 
   // Build the button.
-  Center buildNormalUserButton(NormalUserRepository repository) {
+  Center buildNormalUserButton(BusinessUserRepository repository) {
     return Center(
       child: ElevatedButton(
         onPressed: () async {
-          normalUsers = await repository.getNormalUsers();
+          businessUsers = await repository.getBusinessUsers();
           setState(() { });
         },
         child: const Text('Get Users'),

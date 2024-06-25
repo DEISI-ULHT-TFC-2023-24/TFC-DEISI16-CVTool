@@ -1,9 +1,9 @@
-// This is the Normal User Data Model
 class NormalUser {
   final String id;
   final String email;
   final String name;
   final String username;
+  final String gender;
   final String job;
   final String phoneNumber;
   final String age;
@@ -12,11 +12,13 @@ class NormalUser {
   final String? skills;
   final String? experience;
 
-  NormalUser({required this.id,
+  NormalUser({
+    required this.id,
     required this.email,
     required this.name,
     required this.username,
     required this.job,
+    required this.gender,
     required this.phoneNumber,
     required this.age,
     required this.password,
@@ -25,20 +27,16 @@ class NormalUser {
     this.experience});
 
   factory NormalUser.fromMap(Map<String, dynamic> map) {
-    return NormalUser(id: map['id'],
-        email: map ['email'],
-        name: map['name'],
-        username: map['username'],
-        job: map['profissao'],
-        phoneNumber: map['numeroDeTelemovel'],
-        age: map['age'],
-        password: map['password'],
-        academy: map['academicSkills'],
-        skills: map['skills'],
-        experience: map['experience']
+    return NormalUser(
+        id: map['id'].toString(),  // Ensuring id is a String
+        email: map['email'] ?? '',
+        name: map['name'] ?? '',
+        username: map['username'] ?? '',
+        gender: map['gender'] ?? '',
+        job: map['profissao'] ?? '',
+        phoneNumber: map['numeroDeTelemovel'] ?? '',
+        age: map['age'].toString(),  // Ensuring age is a String
+        password: map['password'] ?? ''
     );
   }
-
 }
-
-

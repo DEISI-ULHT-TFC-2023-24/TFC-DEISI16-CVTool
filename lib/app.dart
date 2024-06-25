@@ -3,6 +3,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:tfc_versaofinal/test/normal_user_test.dart';
 import 'package:tfc_versaofinal/utils/theme/theme.dart';
 
+import 'features/authentication/screens/OnBoarding/onboarding.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -12,8 +14,8 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: NormalUserInfoTest(),
-      // home: const OnBoardingScreen(),
+      // home: NormalUserInfoTest(),
+      home: const OnBoardingScreen(),
     );
   }
 }
