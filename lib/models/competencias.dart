@@ -16,10 +16,19 @@ class Competencias {
 
   factory Competencias.fromMap(Map<String, dynamic> map) {
     return Competencias(
-      id: map['id'].toString(),  // Ensuring id is a String
+      id: map['id']?.toString() ?? '',  // Ensuring id is a String
       name: map['nome'] ?? '',
       type: map['type'] ?? '',
       author: map['author'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'nome': name,
+      'type': type,
+      'author': author,
+    };
   }
 }
