@@ -37,41 +37,209 @@ class BusinessUserRepository {
 
   // Get the user by id
   Future<BusinessUser?> getBusinessUserById(int id) async {
-    return null;
+    // API
+    final response = await _client.get(
+      url: 'http://10.0.2.2:8080/api/businessUsers/searchId/$id',
+      headers: {
+        'x-api-token': '12345',
+        'Authorization': basicAuth,
+      },
+    );
+    // Success Case
+    if (response.statusCode == 200) {
+      final responseJSON = jsonDecode(response.body);
+      return BusinessUser.fromMap(responseJSON);
+    } else if (response.statusCode == 404) {
+      // Handle the case when the user is not found
+      print('Business user not found');
+      return null;
+    } else {
+      throw Exception(
+          'Failed to load business user, status code: ${response.statusCode}');
+    }
   }
 
   // Get the user by name
   Future<BusinessUser?> getBusinessUserByName(String name) async {
-    return null;
+    // API
+    final response = await _client.get(
+      url: 'http://10.0.2.2:8080/api/businessUsers/searchName/$name',
+      headers: {
+        'x-api-token': '12345',
+        'Authorization': basicAuth,
+      },
+    );
+    // Success Case
+    if (response.statusCode == 200) {
+      final responseJSON = jsonDecode(response.body);
+      return BusinessUser.fromMap(responseJSON);
+    } else if (response.statusCode == 404) {
+      // Handle the case when the user is not found
+      print('Business user not found');
+      return null;
+    } else {
+      throw Exception(
+          'Failed to load business user, status code: ${response.statusCode}');
+    }
   }
 
   // Get the user by username
   Future<BusinessUser?> getBusinessUserByUserName(String username) async {
-    return null;
+    // API
+    final response = await _client.get(
+      url: 'http://10.0.2.2:8080/api/businessUsers/searchUserName/$username',
+      headers: {
+        'x-api-token': '12345',
+        'Authorization': basicAuth,
+      },
+    );
+    // Success Case
+    if (response.statusCode == 200) {
+      final responseJSON = jsonDecode(response.body);
+      return BusinessUser.fromMap(responseJSON);
+    } else if (response.statusCode == 404) {
+      // Handle the case when the user is not found
+      print('Business user not found');
+      return null;
+    } else {
+      throw Exception(
+          'Failed to load business user, status code: ${response.statusCode}');
+    }
   }
 
   // Create business user
   Future<String> createBusinessUser(String email, String name, String username, String gender, String job, String phoneNumber, int age, String password, String company) async {
-    return "";
+    const url = 'http://10.0.2.2:8080/api/businessUsers/add';
+    final Map<String, dynamic> user = {
+      'email': email,
+      'name': name,
+      'username': username,
+      'gender': gender,
+      'profissao': job,
+      'numeroDeTelemovel': phoneNumber,
+      'age': age,
+      'password': password,
+      'empresa': company,
+    };
+
+    final response = await _client.post(
+      url: url,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-token': '12345',
+        'Authorization': basicAuth,
+      },
+      body: jsonEncode(user),
+    );
+
+    if (response.statusCode == 201) {
+      return 'User created successfully';
+    } else if (response.statusCode == 409) {
+      return 'Conflict: ${response.body}';
+    } else {
+      throw Exception(
+          'Failed to create business user, status code: ${response.statusCode}');
+    }
   }
 
-  // Delete user by id
+// Delete user by id
   Future<String> deleteUserById(int id) async {
-    return "";
+    // API
+    final response = await _client.delete(
+      url: ('http://10.0.2.2:8080/api/businessUsers/delete/$id'),
+      headers: {
+        'x-api-token': '12345',
+        'Authorization': basicAuth,
+      },
+    );
+    // Success Case
+    if (response.statusCode == 200) {
+      return "User with id $id deleted successfully!";
+    } else if (response.statusCode == 404) {
+      return 'Business user not found';
+    } else {
+      throw Exception(
+          'Failed to delete business user, status code: ${response.statusCode}');
+    }
   }
 
-  // Delete user by username
+// Delete user by username
   Future<String> deleteUserByUsername(String username) async {
-    return "";
+    // API
+    final response = await _client.delete(
+      url: ('http://10.0.2.2:8080/api/businessUsers/deleteByUserName/$username'),
+      headers: {
+        'x-api-token': '12345',
+        'Authorization': basicAuth,
+      },
+    );
+    // Success Case
+    if (response.statusCode == 200) {
+      return "User with username $username deleted successfully!";
+    } else if (response.statusCode == 404) {
+      return 'Business user not found';
+    } else {
+      throw Exception(
+          'Failed to delete business user, status code: ${response.statusCode}');
+    }
   }
 
-  // Edit business user
+// Edit business user
   Future<String> editBusinessUser(String email, String name, String username, String gender, String job, String phoneNumber, int age, String password, String company) async {
-    return "";
+    const url = 'http://10.0.2.2:8080/api/editBusinessUser';
+    final Map<String, dynamic> user = {
+      'email': email,
+      'name': name,
+      'username': username,
+      'gender': gender,
+      'profissao': job,
+      'numeroDeTelemovel': phoneNumber,
+      'age': age,
+      'password': password,
+      'empresa': company,
+    };
+
+    final response = await _client.put(
+      url: url,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-token': '12345',
+        'Authorization': basicAuth,
+      },
+      body: jsonEncode(user),
+    );
+
+    if (response.statusCode == 200) {
+      return 'User updated successfully';
+    } else if (response.statusCode == 404) {
+      return 'Not Found: ${response.body}';
+    } else {
+      throw Exception(
+          'Failed to edit business user, status code: ${response.statusCode}');
+    }
   }
 
-  // Validates the user and gets the user
+// Validates the user and gets the user
   Future<BusinessUser?> getTheBusinessUserAfterValidation(String username, String password) async {
-    return null;
+    // API
+    final response = await _client.get(
+      url: 'http://10.0.2.2:8080/api/businessUsers/validator/$username/$password',
+      headers: {
+        'x-api-token': '12345',
+        'Authorization': basicAuth,
+      },
+    );
+    // Success Case
+    if (response.statusCode == 200) {
+      final responseJSON = jsonDecode(response.body);
+      return BusinessUser.fromMap(responseJSON);
+    } else if (response.statusCode == 404) {
+      // Handle the case when the user is not found
+      print('Business user not found');
+      return null;
+    } else {
+      throw Exception(
+          'Failed to load business user, status code: ${response.statusCode}');
+    }
   }
 }
