@@ -28,9 +28,8 @@ class NormalUserRepository {
       print('Response JSON: $responseJSON'); // Debugging line
 
       if (responseJSON is List) {
-        List<NormalUser> usersNormal = responseJSON
-            .map((user) => NormalUser.fromMap(user))
-            .toList();
+        List<NormalUser> usersNormal =
+            responseJSON.map((user) => NormalUser.fromMap(user)).toList();
         return usersNormal;
       } else {
         throw Exception('Invalid response format');
@@ -61,10 +60,46 @@ class NormalUserRepository {
         final normalUser = responseJSON[0];
         return NormalUser.fromMap(normalUser);
       } else {
-        throw Exception('Invalid response format or no user found with the given ID');
+        throw Exception(
+            'Invalid response format or no user found with the given ID');
       }
     } else {
       throw Exception('Status code: ${response.statusCode}');
     }
+  }
+
+  // Get the user by name
+  Future<NormalUser?> getUserByName(String name) async {
+    return null;
+  }
+
+  // Get the user by username
+  Future<NormalUser?> getUserByUsername(String username) async {
+    return null;
+  }
+
+  // Create a new user
+  Future<String> createNewUser(String email, String name, String username, String gender, String job, String phoneNumber, int age, String password) async {
+    return "";
+  }
+
+  // Delete user by id
+  Future<String> deleteUserById(int id) async {
+    return "";
+  }
+
+  // Delete user by username
+  Future<String> deleteUserByUsername(String username) async {
+    return "";
+  }
+
+  // Edit User by id
+  Future<String> editUserById(String email, String name, String username, String gender, String job, String phoneNumber, int age, String password) async {
+    return "";
+  }
+
+  // Validates the user and gets the user
+  Future<NormalUser?> getUserAfterValidation(String username, String password) async {
+    return null;
   }
 }

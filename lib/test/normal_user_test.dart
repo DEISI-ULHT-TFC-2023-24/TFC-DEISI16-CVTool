@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tfc_versaofinal/repository/business_user_repository.dart';
-import 'package:tfc_versaofinal/repository/normal_user_repository.dart';
 import 'package:tfc_versaofinal/test/test_detail_page.dart';
 import '../models/business_user.dart';
-import '../models/normal_user.dart';
 
 class NormalUserInfoTest extends StatefulWidget {
   NormalUserInfoTest({super.key});

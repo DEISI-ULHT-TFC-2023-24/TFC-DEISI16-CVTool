@@ -35,6 +35,43 @@ class BusinessUserRepository {
     }
   }
 
-  //Adicionar funçoes para enviar/ ir buscar dados à API
+  // Get the user by id
+  Future<BusinessUser?> getBusinessUserById(int id) async {
+    return null;
+  }
 
+  // Get the user by name
+  Future<BusinessUser?> getBusinessUserByName(String name) async {
+    return null;
+  }
+
+  // Get the user by username
+  Future<BusinessUser?> getBusinessUserByUserName(String username) async {
+    return null;
+  }
+
+  // Create business user
+  Future<String> createBusinessUser(String email, String name, String username, String gender, String job, String phoneNumber, int age, String password, String company) async {
+    return "";
+  }
+
+  // Delete user by id
+  Future<String> deleteUserById(int id) async {
+    return "";
+  }
+
+  // Delete user by username
+  Future<String> deleteUserByUsername(String username) async {
+    return "";
+  }
+
+  // Edit business user
+  Future<String> editBusinessUser(String email, String name, String username, String gender, String job, String phoneNumber, int age, String password, String company) async {
+    return "";
+  }
+
+  // Validates the user and gets the user
+  Future<BusinessUser?> getTheBusinessUserAfterValidation(String username, String password) async {
+    return null;
+  }
 }

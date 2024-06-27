@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:tfc_versaofinal/test/normal_user_test.dart';
 import 'package:tfc_versaofinal/utils/theme/theme.dart';
 
 import 'features/authentication/screens/OnBoarding/onboarding.dart';
