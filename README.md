@@ -4,7 +4,7 @@
 Name: TMS(Talent Management System)
 
 # Back-End
-Repo: https://github.com/dionisio-miron-a22204982/TFCBackEnd.git
+Repo: https://github.com/dionisio-miron-a22204982/DEISI-16-BackEnd.git
 
 # Authors
 Name: Dionísio Miron. 
