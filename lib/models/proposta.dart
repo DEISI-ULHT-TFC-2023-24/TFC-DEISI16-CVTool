@@ -1,14 +1,16 @@
 import 'package:tfc_versaofinal/models/business_user.dart';
 import 'package:tfc_versaofinal/models/normal_user.dart';
+import 'comentarios.dart';
+
 
 class Proposta {
   final String id;
-  final String comment;
+  final Comentarios? comment;
   final String area;
   final String descricao;
   final String skillRequired;
-  final BusinessUser? author;
-  final NormalUser? candidato;
+  final BusinessUser author;
+  final NormalUser? candidate;
 
 
   Proposta({
@@ -18,7 +20,7 @@ class Proposta {
     required this.descricao,
     required this.skillRequired,
     required this.author,
-    required this.candidato,
+    required this.candidate,
   });
 
   factory Proposta.fromMap(Map<String, dynamic> map) {
@@ -29,7 +31,7 @@ class Proposta {
         descricao: map['descricao'] ?? '',
         skillRequired: map['skillsRequired'] ?? '',
         author: map['author'] ?? '',
-        candidato: map['candidate'] ?? '',
+        candidate: map['candidate'] ?? '',
     );
   }
 }

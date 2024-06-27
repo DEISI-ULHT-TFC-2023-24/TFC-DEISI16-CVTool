@@ -34,4 +34,7 @@ class BusinessUserRepository {
       throw Exception('Status code: ${response.statusCode}');
     }
   }
+
+  //Adicionar funçoes para enviar/ ir buscar dados à API
+
 }

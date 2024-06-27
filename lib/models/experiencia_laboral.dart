@@ -2,29 +2,29 @@ import 'package:tfc_versaofinal/models/normal_user.dart';
 
 class ExperienciaLaboral {
   final String id;
-  final String cidade;
-  final String profissao;
-  final String nomeEmpresa;
-  final String duracaoDaExperiencia;
+  final String city;
+  final String job;
+  final String companyName;
+  final String durationOfExperience;
   final NormalUser? author;
 
 
   ExperienciaLaboral({
     required this.id,
-    required this.cidade,
-    required this.profissao,
-    required this.nomeEmpresa,
-    required this.duracaoDaExperiencia,
+    required this.city,
+    required this.job,
+    required this.companyName,
+    required this.durationOfExperience,
     required this.author
   });
 
   factory ExperienciaLaboral.fromMap(Map<String, dynamic> map) {
     return ExperienciaLaboral(
       id: map['id'].toString(),  // Ensuring id is a String
-      cidade: map['cidade'] ?? '',
-      profissao: map['profissao'] ?? '',
-      nomeEmpresa: map['nomeEmpresa'] ?? '',
-      duracaoDaExperiencia: map['duracaoDaExperiencia'] ?? '',
+      city: map['cidade'] ?? '',
+      job: map['profissao'] ?? '',
+      companyName: map['nomeEmpresa'] ?? '',
+      durationOfExperience: map['duracaoDaExperiencia'] ?? '',
       author: map['author'] ?? '',
     );
   }

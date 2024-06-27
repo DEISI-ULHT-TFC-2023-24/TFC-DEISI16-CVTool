@@ -6,11 +6,11 @@ import 'app.dart';
 
 
 void main() {
-  /*
+
   runApp(Provider(
       create: (_) => NormalUserRepository(client: HttpClient()),
       child: const App(),
   ));
-   */
-  runApp(const App());
+
+  //runApp(const App());
 }

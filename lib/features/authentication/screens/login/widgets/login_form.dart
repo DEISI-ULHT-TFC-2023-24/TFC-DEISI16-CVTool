@@ -104,6 +104,9 @@ class _LoginFormState extends State<LoginForm> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
+
+                  //Aqui envia o username e password para API, a API responde se está certo ou não
+
                   if (_formKey.currentState!.validate()) {
                     final String enteredUsername = _usernameController.text;
                     final String enteredPassword = _passwordController.text;

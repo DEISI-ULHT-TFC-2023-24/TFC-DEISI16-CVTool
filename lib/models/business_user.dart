@@ -10,6 +10,7 @@ class BusinessUser {
   final String password;
   final String company;
 
+
   BusinessUser(
       {required this.id,
       required this.email,

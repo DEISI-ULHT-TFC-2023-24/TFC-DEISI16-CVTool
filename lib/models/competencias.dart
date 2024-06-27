@@ -2,14 +2,14 @@ import 'package:tfc_versaofinal/models/normal_user.dart';
 
 class Competencias {
   final String id;
-  final String nome;
+  final String name;
   final String type;
   final NormalUser? author;
 
 
   Competencias({
     required this.id,
-    required this.nome,
+    required this.name,
     required this.type,
     required this.author
   });
@@ -17,7 +17,7 @@ class Competencias {
   factory Competencias.fromMap(Map<String, dynamic> map) {
     return Competencias(
       id: map['id'].toString(),  // Ensuring id is a String
-      nome: map['nome'] ?? '',
+      name: map['nome'] ?? '',
       type: map['type'] ?? '',
       author: map['author'] ?? '',
     );

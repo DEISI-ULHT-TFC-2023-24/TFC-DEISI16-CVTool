@@ -1,17 +1,15 @@
-import 'package:tfc_versaofinal/models/normal_user.dart';
-
 class Comentarios {
   final String id;
   final String author;
   final String data;
-  final String comentario;
+  final String comment;
 
 
   Comentarios({
     required this.id,
     required this.author,
     required this.data,
-    required this.comentario
+    required this.comment
   });
 
   factory Comentarios.fromMap(Map<String, dynamic> map) {
@@ -19,7 +17,7 @@ class Comentarios {
       id: map['id'].toString(),  // Ensuring id is a String
       author: map['author'] ?? '',
       data: map['data'] ?? '',
-      comentario: map['comentario'] ?? '',
+      comment: map['comentario'] ?? '',
     );
   }
 }

@@ -1,3 +1,9 @@
+// Imports
+import 'competencias.dart';
+import 'experiencia_laboral.dart';
+import 'formacao_academica.dart';
+
+// Class User Normal
 class NormalUser {
   final String id;
   final String email;
@@ -8,9 +14,9 @@ class NormalUser {
   final String phoneNumber;
   final String age;
   final String password;
-  final String? academy;
-  final String? skills;
-  final String? experience;
+  final List<ExperienciaLaboral>? experience;
+  final List<Competencias>? skills;
+  final List<FormacaoAcademica>? academy;
 
   NormalUser({
     required this.id,
