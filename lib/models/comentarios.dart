@@ -20,4 +20,13 @@ class Comentarios {
       comment: map['comentario'] ?? '',
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'author': author,
+      'data': data,
+      'comentario': comment,
+    };
+  }
 }
