@@ -109,7 +109,6 @@ class BusinessUserRepository {
 
   // Create business user
   Future<String> createBusinessUser(String email, String name, String username, String gender, String job, String phoneNumber, int age, String password, String company) async {
-    const url = 'http://10.0.2.2:8080/api/businessUsers/add';
     final Map<String, dynamic> user = {
       'email': email,
       'name': name,
@@ -123,7 +122,7 @@ class BusinessUserRepository {
     };
 
     final response = await _client.post(
-      url: url,
+      url: 'http://10.0.2.2:8080/api/businessUsers/add',
       headers: {
         'Content-Type': 'application/json',
         'x-api-token': '12345',
@@ -185,9 +184,9 @@ class BusinessUserRepository {
   }
 
 // Edit business user
-  Future<String> editBusinessUser(String email, String name, String username, String gender, String job, String phoneNumber, int age, String password, String company) async {
-    const url = 'http://10.0.2.2:8080/api/editBusinessUser';
+  Future<String> editBusinessUser(int id, String email, String name, String username, String gender, String job, String phoneNumber, int age, String password, String company) async {
     final Map<String, dynamic> user = {
+      'id': id,
       'email': email,
       'name': name,
       'username': username,
@@ -200,7 +199,7 @@ class BusinessUserRepository {
     };
 
     final response = await _client.put(
-      url: url,
+      url: 'http://10.0.2.2:8080/api/editBusinessUser',
       headers: {
         'Content-Type': 'application/json',
         'x-api-token': '12345',

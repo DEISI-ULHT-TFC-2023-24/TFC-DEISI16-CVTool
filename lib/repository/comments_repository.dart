@@ -40,7 +40,7 @@ class CommentsRepository {
   }
 
   // Get the Comment by id
-  Future<List<Comentarios>?> getCommentById(int id) async {
+  Future<List<Comentarios>?> getCommentsOfUserById(int id) async {
     // Call API to get normal Users.
     final response = await _client.get(
       url: ('http://10.0.2.2:8080/api/comentarios/listOfUser/$id'),

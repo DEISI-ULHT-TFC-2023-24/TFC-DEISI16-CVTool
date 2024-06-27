@@ -28,4 +28,15 @@ class ExperienciaLaboral {
       author: map['author'] ?? '',
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'cidade': city,
+      'profissao': job,
+      'nomeEmpresa': companyName,
+      'duracaoDaExperiencia': durationOfExperience,
+      'author': author,
+    };
+  }
 }
