@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tfc_versaofinal/models/experiencia_laboral.dart';
+import 'package:tfc_versaofinal/models/competencias.dart';
 import 'package:tfc_versaofinal/models/normal_user.dart';
-import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/new_private_experience.dart';
-import 'package:tfc_versaofinal/users/private/models/private_experiences_model.dart';
+import 'package:tfc_versaofinal/repository/experiencia_repository.dart';
+import 'package:tfc_versaofinal/repository/skills_repository.dart';
 import '../../../../features/authentication/screens/login/login.dart';
 
-
-
 class PrivateHomeScreen extends StatefulWidget {
-  PrivateHomeScreen({Key? key, required this.user}) : super(key: key);
+  const PrivateHomeScreen({super.key, required this.user});
 
   final NormalUser user;
 
@@ -16,18 +17,38 @@ class PrivateHomeScreen extends StatefulWidget {
 }
 
 class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
-  //late List<PrivateExperiences> experiences = null;
+  late ExperienciaRepository experienceRepository;
+  late SkillsRepository skillsRepository;
+
+  List<ExperienciaLaboral> experiences = [];
+  List<Competencias> skills = [];
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    //experiences = widget.user.experiences!;
+    experienceRepository = context.read<ExperienciaRepository>();
+    skillsRepository = context.read<SkillsRepository>();
+    _fetchData();
   }
 
-  void _addExperience(PrivateExperiences newExperience) {
-    setState(() {
-      //experiences.add(PrivateExperiences(name: newExperience.name, company: newExperience.company, description: '', date: DateTime.now()));
-    });
+  Future<void> _fetchData() async {
+    try {
+      final fetchedExperiences = await experienceRepository
+          .getExperienceByAuthor(widget.user.username);
+      final fetchedSkills = await skillsRepository.getSkillsByAuthorUsername(widget.user.username);
+      print(experiences);
+      setState(() {
+        experiences = fetchedExperiences ?? [];
+        skills = fetchedSkills ?? [];
+        isLoading = false;
+      });
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -41,11 +62,9 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
               padding: const EdgeInsets.all(25.0),
               child: Column(
                 children: [
-                  // Welcome and leave button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Username
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -57,19 +76,17 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(
-                            height: 6,
-                          ),
+                          const SizedBox(height: 6),
                           Text(
                             widget.user.job,
                             style: const TextStyle(color: Colors.white54),
                           ),
                         ],
                       ),
-
-                      // Leave Icon
                       TextButton(
-                        onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen())),
+                        onPressed: () => Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen())),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.blue[400],
@@ -89,162 +106,171 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
               ),
             ),
             const SizedBox(height: 5),
-
-            // Divider
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(25),
                 color: Colors.grey[300],
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Experiencias',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            //Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewPrivateExperienceScreen(_addExperience)));
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    // List of Experiences
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.grey[300],
-                        ),
-                        padding: const EdgeInsets.all(15),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 0,
-                          itemBuilder: (context, index) => ListTile(
-                            contentPadding: const EdgeInsets.all(8.0),
-                            title: Text(
-                              "experiences[index].name",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
+                child: isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Experiencias',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "experiences[index].company",
-                                  style: const TextStyle(
+                              TextButton(
+                                onPressed: () {
+                                  //Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewPrivateExperienceScreen(_addExperience)));
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  child: const Icon(
+                                    Icons.add,
                                     color: Colors.black,
-                                    fontSize: 14,
                                   ),
                                 ),
-                              ],
-                            ),
-                            trailing: const Icon(
-                              Icons.arrow_forward_ios,
-                            ),
-                            leading: const Icon(
-                              Icons.workspace_premium,
-                              color: Colors.black,
-                            ),
-                            onTap: () {
-                              //Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivateExperiencePage(experience: experiences, user: widget.user)));
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    // List of Skills
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Competencias',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewPrivateExperienceScreen(_addExperience)));
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.grey[300],
-                        ),
-                        padding: const EdgeInsets.all(15),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 0,
-                          itemBuilder: (context, index) => ListTile(
-                            contentPadding: const EdgeInsets.all(8.0),
-                            title: Text(
-                              "experiences[index].name",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
                               ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "experiences[index].company",
-                                  style: const TextStyle(
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: experiences.length,
+                              itemBuilder: (context, index) {
+                                final experience = experiences[index];
+                                return ListTile(
+                                  contentPadding: const EdgeInsets.all(8.0),
+                                  title: Text(
+                                    experience.job,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        experience.companyName,
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "${experience.city}    ",
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          Text(
+                                            experience.durationOfExperience,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.arrow_forward_ios,
+                                  ),
+                                  leading: const Icon(
+                                    Icons.workspace_premium,
                                     color: Colors.black,
-                                    fontSize: 14,
+                                  ),
+                                  onTap: () {
+                                    // Navigate to experience details
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Competencias',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  // Navigate to add new skill screen
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: Colors.black,
                                   ),
                                 ),
-                              ],
-                            ),
-                            trailing: const Icon(
-                              Icons.arrow_forward_ios,
-                            ),
-                            leading: const Icon(
-                              Icons.workspace_premium,
-                              color: Colors.black,
-                            ),
-                            onTap: () {
-                              //Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivateExperiencePage(experience: experiences)));
-                            },
+                              ),
+                            ],
                           ),
-                        ),
+                          const SizedBox(height: 10),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: skills.length,
+                              itemBuilder: (context, index) {
+                                final skill = skills[index];
+                                return ListTile(
+                                  contentPadding: const EdgeInsets.all(8.0),
+                                  title: Text(
+                                    skill.name,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        skill.type,
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.arrow_forward_ios,
+                                  ),
+                                  leading: const Icon(
+                                    Icons.workspace_premium,
+                                    color: Colors.black,
+                                  ),
+                                  onTap: () {
+                                    // Navigate to skill details
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
               ),
             ),
           ],

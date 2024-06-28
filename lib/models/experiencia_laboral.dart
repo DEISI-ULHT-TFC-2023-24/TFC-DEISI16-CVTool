@@ -8,24 +8,23 @@ class ExperienciaLaboral {
   final String durationOfExperience;
   final NormalUser? author;
 
-
   ExperienciaLaboral({
     required this.id,
     required this.city,
     required this.job,
     required this.companyName,
     required this.durationOfExperience,
-    required this.author
+    required this.author,
   });
 
   factory ExperienciaLaboral.fromMap(Map<String, dynamic> map) {
     return ExperienciaLaboral(
-      id: map['id'].toString(),  // Ensuring id is a String
+      id: map['id'].toString(), // Ensuring id is a String
       city: map['cidade'] ?? '',
       job: map['profissao'] ?? '',
       companyName: map['nomeEmpresa'] ?? '',
       durationOfExperience: map['duracaoDaExperiencia'] ?? '',
-      author: map['author'] ?? '',
+      author: map['author'] != null ? NormalUser.fromMap(map['author']) : null, // Correctly parsing the author field
     );
   }
 
@@ -36,7 +35,7 @@ class ExperienciaLaboral {
       'profissao': job,
       'nomeEmpresa': companyName,
       'duracaoDaExperiencia': durationOfExperience,
-      'author': author,
+      'author': author?.toMap(),
     };
   }
 }

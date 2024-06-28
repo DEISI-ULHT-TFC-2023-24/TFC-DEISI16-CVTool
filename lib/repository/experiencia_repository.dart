@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:tfc_versaofinal/models/business_user.dart';
 import 'package:tfc_versaofinal/models/experiencia_laboral.dart';
+import 'package:tfc_versaofinal/models/normal_user.dart';
 import 'package:tfc_versaofinal/utils/http/http_client.dart';
 
 class ExperienciaRepository {
@@ -121,7 +121,7 @@ class ExperienciaRepository {
   }
 
   // Create a Experience
-  Future<String> createExperience(int id, String city, String job, String companyName, String duration, BusinessUser author) async {
+  Future<String> createExperience(int id, String city, String job, String companyName, String duration, NormalUser author) async {
     final Map<String, dynamic> commentData = {
       'id': id,
       'cidade': city,

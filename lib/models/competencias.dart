@@ -19,7 +19,7 @@ class Competencias {
       id: map['id']?.toString() ?? '',  // Ensuring id is a String
       name: map['nome'] ?? '',
       type: map['type'] ?? '',
-      author: map['author'] ?? '',
+      author: map['author'] != null ? NormalUser.fromMap(map['author']) : null,
     );
   }
 
@@ -28,7 +28,7 @@ class Competencias {
       'id': id,
       'nome': name,
       'type': type,
-      'author': author,
+      'author': author?.toMap(),
     };
   }
 }

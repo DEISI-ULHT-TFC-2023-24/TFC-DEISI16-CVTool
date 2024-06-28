@@ -1,48 +1,37 @@
-// Imports
-import 'competencias.dart';
-import 'experiencia_laboral.dart';
-import 'formacao_academica.dart';
-
-// Class User Normal
 class NormalUser {
-  final String id;
+  final int id;
   final String email;
   final String name;
   final String username;
   final String gender;
   final String job;
   final String phoneNumber;
-  final String age;
+  final int age;
   final String password;
-  final List<ExperienciaLaboral>? experience;
-  final List<Competencias>? skills;
-  final List<FormacaoAcademica>? academy;
 
   NormalUser({
     required this.id,
     required this.email,
     required this.name,
     required this.username,
-    required this.job,
     required this.gender,
+    required this.job,
     required this.phoneNumber,
     required this.age,
     required this.password,
-    this.academy,
-    this.skills,
-    this.experience});
+  });
 
   factory NormalUser.fromMap(Map<String, dynamic> map) {
     return NormalUser(
-        id: map['id'].toString(),  // Ensuring id is a String
-        email: map['email'] ?? '',
-        name: map['name'] ?? '',
-        username: map['username'] ?? '',
-        gender: map['gender'] ?? '',
-        job: map['profissao'] ?? '',
-        phoneNumber: map['numeroDeTelemovel'] ?? '',
-        age: map['age'].toString(),  // Ensuring age is a String
-        password: map['password'] ?? ''
+      id: map['id'],
+      email: map['email'] ?? '',
+      name: map['name'] ?? '',
+      username: map['username'] ?? '',
+      gender: map['gender'] ?? '',
+      job: map['profissao'] ?? '',
+      phoneNumber: map['numeroDeTelemovel'] ?? '',
+      age: map['age'] ?? 0,
+      password: map['password'] ?? '',
     );
   }
 
