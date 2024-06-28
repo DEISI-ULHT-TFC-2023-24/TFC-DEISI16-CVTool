@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:tfc_versaofinal/models/normal_user.dart';
 import 'package:tfc_versaofinal/users/private/widgets/home/private_home.dart';
 import 'package:tfc_versaofinal/users/private/widgets/mail/private_mail.dart';
+import 'package:tfc_versaofinal/users/private/widgets/offers/private_offers.dart';
+import 'package:tfc_versaofinal/users/private/widgets/profile/private_profile.dart';
 import 'package:tfc_versaofinal/utils/helpers/helper_functions.dart';
 import '../../utils/constants/colors.dart';
 
@@ -49,9 +51,9 @@ class NavigationController extends GetxController {
   NavigationController({required NormalUser? user}) {
     screens = [
       PrivateHomeScreen(user: user!),
-      //PrivateOffersScreen(user: user),
+      PrivateOffersScreen(user: user),
       const PrivateMailScreen(),
-      //PrivateProfileScreen(user: user),
+      PrivateProfileScreen(user: user),
     ];
   }
 }

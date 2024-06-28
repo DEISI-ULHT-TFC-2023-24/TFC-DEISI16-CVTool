@@ -169,7 +169,7 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                                       Row(
                                         children: [
                                           Text(
-                                            "${experience.city}    ",
+                                            "${experience.city} - ",
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 15,
@@ -186,11 +186,8 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                                       ),
                                     ],
                                   ),
-                                  trailing: const Icon(
-                                    Icons.arrow_forward_ios,
-                                  ),
                                   leading: const Icon(
-                                    Icons.workspace_premium,
+                                    Icons.work,
                                     color: Colors.black,
                                   ),
                                   onTap: () {
@@ -254,9 +251,6 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                                         ),
                                       ),
                                     ],
-                                  ),
-                                  trailing: const Icon(
-                                    Icons.arrow_forward_ios,
                                   ),
                                   leading: const Icon(
                                     Icons.workspace_premium,

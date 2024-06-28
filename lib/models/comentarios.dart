@@ -1,5 +1,5 @@
 class Comentarios {
-  final String id;
+  final int id;
   final String author;
   final String data;
   final String comment;
@@ -14,7 +14,7 @@ class Comentarios {
 
   factory Comentarios.fromMap(Map<String, dynamic> map) {
     return Comentarios(
-      id: map['id'].toString(),  // Ensuring id is a String
+      id: map['id'],  // Ensuring id is a String
       author: map['author'] ?? '',
       data: map['data'] ?? '',
       comment: map['comentario'] ?? '',

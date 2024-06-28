@@ -180,12 +180,12 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
                 if (_formKey.currentState!.validate()) {
                   // If all fields are valid, create the BusinessUser object
                   BusinessUser user = BusinessUser(
-                    id: "0",
+                    id: 0,
                     name: '${_firstNameController.text} ${_lastNameController.text}',
                     email: _emailController.text,
                     username: _usernameController.text,
                     gender: "male",
-                    age: "99",
+                    age: 99,
                     password: _passwordController.text,
                     phoneNumber: _phoneNumberController.text,
                     job: _jobController.text,

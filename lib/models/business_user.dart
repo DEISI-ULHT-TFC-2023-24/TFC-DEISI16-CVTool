@@ -1,13 +1,13 @@
 // This is the Business User Data Model
 class BusinessUser {
-  final String id;
+  final int id;
   final String email;
   final String name;
   final String username;
   final String gender;
   final String job;
   final String phoneNumber;
-  final String age;
+  final int age;
   final String password;
   final String company;
 
@@ -27,14 +27,14 @@ class BusinessUser {
 
   factory BusinessUser.fromMap(Map<String, dynamic> map) {
     return BusinessUser(
-        id: map['id'].toString(),
+        id: map['id'],
         email: map['email'] ?? '',
         name: map['name'] ?? '',
         username: map['username'] ?? '',
         gender: map['gender'] ?? '',
         job: map['profissao'] ?? '',
         phoneNumber: map['numeroDeTelemovel'] ?? '',
-        age: map['age'].toString(),
+        age: map['age'] ?? 0,
         password: map['password'] ?? '',
         company: map['empresa'] ?? '',
     );

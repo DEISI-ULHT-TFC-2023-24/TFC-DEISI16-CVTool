@@ -1,7 +1,7 @@
 import 'package:tfc_versaofinal/models/normal_user.dart';
 
 class ExperienciaLaboral {
-  final String id;
+  final int id;
   final String city;
   final String job;
   final String companyName;
@@ -19,7 +19,7 @@ class ExperienciaLaboral {
 
   factory ExperienciaLaboral.fromMap(Map<String, dynamic> map) {
     return ExperienciaLaboral(
-      id: map['id'].toString(), // Ensuring id is a String
+      id: map['id'], // Ensuring id is a String
       city: map['cidade'] ?? '',
       job: map['profissao'] ?? '',
       companyName: map['nomeEmpresa'] ?? '',

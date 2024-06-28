@@ -1,7 +1,7 @@
 import 'package:tfc_versaofinal/models/normal_user.dart';
 
 class FormacaoAcademica {
-  final String id;
+  final int id;
   final String name;
   final String type;
   final String institute;
@@ -20,7 +20,7 @@ class FormacaoAcademica {
 
   factory FormacaoAcademica.fromMap(Map<String, dynamic> map) {
     return FormacaoAcademica(
-      id: map['id'].toString(),  // Ensuring id is a String
+      id: map['id'],
       name: map['nome'] ?? '',
       type: map['tipoformacao'] ?? '',
       institute: map['instituto'] ?? '',

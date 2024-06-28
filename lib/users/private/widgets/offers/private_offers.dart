@@ -1,33 +1,45 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:tfc_versaofinal/models/normal_user.dart';
-
-import '../../models/offer_model.dart';
+import '../../../../models/proposta.dart';
+import '../../../../repository/propostas_repository.dart';
 import 'private_offer_page.dart';
 
 class PrivateOffersScreen extends StatefulWidget {
-  final NormalUser user; // Define user variable
+  final NormalUser user;
 
-  const PrivateOffersScreen({super.key, required this.user});
+  const PrivateOffersScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State<PrivateOffersScreen> createState() => _OffersPageState();
 }
 
 class _OffersPageState extends State<PrivateOffersScreen> {
-  // Dummy List
+  late OffersRepository offersRepository;
 
-  static List<OfferModel> displayList = List.from(OfferModel.main_offers_list);
+  List<Proposta> offers = [];
+  bool isLoading = true;
 
-  void updateList(String value) {
-    // This function will do the filter in our list.
-    setState(() {
-      displayList = OfferModel.main_offers_list
-          .where((element) =>
-          element.job!.toLowerCase().contains(value.toLowerCase()))
-          .toList();
-    });
+  @override
+  void initState() {
+    super.initState();
+    offersRepository = context.read<OffersRepository>();
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    try {
+      final fetchedOffers = await offersRepository.getOffersList();
+      setState(() {
+        offers = fetchedOffers ?? [];
+        isLoading = false;
+      });
+    } catch (e) {
+      print(e);
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -45,7 +57,6 @@ class _OffersPageState extends State<PrivateOffersScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Page name
             const Text(
               'Ofertas',
               style: TextStyle(
@@ -55,116 +66,94 @@ class _OffersPageState extends State<PrivateOffersScreen> {
               ),
             ),
             const SizedBox(height: 20),
-
-            // Search Bar
-            TextField(
-              onChanged: (value) => updateList(value),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide.none,
-                ),
-                hintText: "Ex.: Engenheiro Informático",
-                prefixIcon: const Icon(Icons.search),
-                prefixIconColor: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 10.0),
-
-            // ListView
             Expanded(
-              child: displayList.isEmpty
-                  ? const Center(
-                child: Text(
-                  "Sem resultados",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
-                ),
-              )
-                  : Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.grey[300],
-                ),
-                padding: const EdgeInsets.all(15),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: displayList.length,
-                  itemBuilder: (context, index) => ListTile(
-                    contentPadding: const EdgeInsets.all(8.0),
-                    title: Text(
-                      displayList[index].job!,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          displayList[index].company!,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Text(
-                          displayList[index].local!,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Row(children: [
-                          const Text(
-                            'Vagas: ',
+              child: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : offers.isEmpty
+                      ? const Center(
+                          child: Text(
+                            "Sem resultados",
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Colors.white,
+                              fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
                             ),
                           ),
-                          Text(
-                            displayList[index].nrOffers!,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ]),
-                      ],
-                    ),
-                    trailing: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => PrivateOfferPage(
-                              offer: [displayList[index]], // Pass a list containing the selected offer
-                              user: widget.user, // Pass user from widget
-                            ),
-                          ),
-                        );
-                      },
-                      child: const Icon(
-                        Icons.arrow_forward_ios,
-                      ),
-                    ),
-                    leading: const Icon(
-                      Icons.work,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
+                        )
+                      : ListView.builder(
+                          itemCount: offers.length,
+                          itemBuilder: (context, index) {
+                            final offer = offers[index];
+                            return Container(
+                              margin: EdgeInsets.symmetric(vertical: 8.0),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12.0),
+                                // Adjust the radius as needed
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.3),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: ListTile(
+                                selectedColor: Colors.cyan,
+                                contentPadding: const EdgeInsets.all(8.0),
+                                title: Text(
+                                  offer.area,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      offer.author.company,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    Text(
+                                      offer.descricao,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                trailing: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => PrivateOfferPage(
+                                          user: widget.user,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: const Icon(
+                                    Icons.arrow_forward_ios,
+                                  ),
+                                ),
+                                leading: const Icon(
+                                  Icons.work,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
             ),
           ],
         ),
