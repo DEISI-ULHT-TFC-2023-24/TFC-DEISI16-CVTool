@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 import 'package:tfc_versaofinal/utils/constants/sizes.dart';
 import 'package:tfc_versaofinal/utils/constants/text_strings.dart';
+import '../../../../../models/business_user.dart';
+import '../../../../../models/normal_user.dart';
+import '../../../../../repository/business_user_repository.dart';
+import '../../../../../repository/normal_user_repository.dart';
 import '../../../../../users/business/business_navigation_bar.dart';
-import '../../../../../users/business/models/business_user_model.dart';
-import '../../../../../users/private/models/private_user_model.dart';
 import '../../../../../users/private/navigation_bar.dart';
 import '../../recovery/recover_pass.dart';
 import '../../register/private/signup.dart';
@@ -18,11 +21,21 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  late NormalUserRepository normalUserRepository;
+  late BusinessUserRepository businessUserRepository;
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  late final PrivateUser? user;
   bool isObscurePassword = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    normalUserRepository = context.read<NormalUserRepository>();
+    businessUserRepository = context.read<BusinessUserRepository>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +56,7 @@ class _LoginFormState extends State<LoginForm> {
               },
               decoration: const InputDecoration(
                   prefixIcon: Icon(Iconsax.direct_right),
-                  labelText: TFCTexts.username)
+                  labelText: TFCTexts.username),
             ),
             const SizedBox(height: TFCSizes.spaceBtwInputFields),
 
@@ -103,45 +116,34 @@ class _LoginFormState extends State<LoginForm> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-
-                  //Aqui envia o username e password para API, a API responde se está certo ou não
-
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     final String enteredUsername = _usernameController.text;
                     final String enteredPassword = _passwordController.text;
 
+                    try {
+                      // Chamada da API para validação do usuário normal
+                      NormalUser? normalUser = await normalUserRepository.getUserAfterValidation(enteredUsername, enteredPassword);
 
-                    // Find the PrivateUser
-                    PrivateUser? privateUser;
-                    for (var user in PrivateUser.main_private_users) {
-                      if (user.username == enteredUsername && user.password == enteredPassword) {
-                        privateUser = user;
-                        break;
+                      // Chamada da API para validação do usuário empresarial
+                      BusinessUser? businessUser = await businessUserRepository.getTheBusinessUserAfterValidation(enteredUsername, enteredPassword);
+
+                      if (businessUser != null) {
+                        Get.to(() => BusinessNavigationBarMenu(user: businessUser));
+                      } else if (normalUser != null) {
+                        Get.to(() => NavigationBarMenu(user: normalUser));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('O seu utilizador ou password estão incorretos.'),
+                          ),
+                        );
                       }
-                    }
-
-                    // Find the BusinessUser
-                    BusinessUser? businessUser;
-                    for (var user in BusinessUser.main_business_users) {
-                      if (user.username == enteredUsername && user.password == enteredPassword) {
-                        businessUser = user;
-                        break;
-                      }
-                    }
-
-                    if (businessUser != null) {
-                      BusinessUser? businessUser = BusinessUser.getBusinessUserByUsername(enteredUsername);
-                      Get.to(() => BusinessNavigationBarMenu(user: businessUser));
-
-                    } else if (privateUser != null) {
-                      PrivateUser? privateUser = PrivateUser.getPrivateUserByUsername(enteredUsername);
-                      Get.to(() => NavigationBarMenu(user: privateUser));
-
-                    } else {
+                    } catch (e) {
+                      // Tratar erros da chamada da API
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('O seu utilizador ou password estão incorretos.'),
+                        SnackBar(
+                          content: Text('Erro ao validar usuário: $e'),
                         ),
                       );
                     }
@@ -167,4 +169,3 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 }
-

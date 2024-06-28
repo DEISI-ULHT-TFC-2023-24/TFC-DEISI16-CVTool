@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tfc_versaofinal/models/normal_user.dart';
 
 import '../../models/offer_model.dart';
-import '../../models/private_user_model.dart';
 import 'private_offer_page.dart';
 
 class PrivateOffersScreen extends StatefulWidget {
-  final PrivateUser user; // Define user variable
+  final NormalUser user; // Define user variable
 
   const PrivateOffersScreen({super.key, required this.user});
 

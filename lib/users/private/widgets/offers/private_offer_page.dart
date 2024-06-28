@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_versaofinal/models/normal_user.dart';
 import '../../models/offer_model.dart';
-import '../../models/private_user_model.dart';
 
 class PrivateOfferPage extends StatelessWidget {
   final List<OfferModel> offer;
-  final PrivateUser user;
+  final NormalUser user;
 
   const PrivateOfferPage({Key? key, required this.offer, required this.user}) : super(key: key);
 

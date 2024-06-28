@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../models/business_user.dart';
 import '../../utils/constants/colors.dart';
-
-import 'package:tfc_versaofinal/users/business/models/business_user_model.dart';
 import 'package:tfc_versaofinal/users/business/widgets/home/business_home.dart';
 import 'package:tfc_versaofinal/users/business/widgets/offers/business_ofertas.dart';
 import 'package:tfc_versaofinal/users/business/widgets/profile/business_profile.dart';

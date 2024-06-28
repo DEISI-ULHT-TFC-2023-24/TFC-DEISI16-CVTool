@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tfc_versaofinal/models/normal_user.dart';
 import 'package:tfc_versaofinal/users/private/widgets/home/private_home.dart';
 import 'package:tfc_versaofinal/users/private/widgets/mail/private_mail.dart';
-import 'package:tfc_versaofinal/users/private/widgets/offers/private_offers.dart';
-import 'package:tfc_versaofinal/users/private/widgets/profile/private_profile.dart';
 import 'package:tfc_versaofinal/utils/helpers/helper_functions.dart';
 import '../../utils/constants/colors.dart';
-import 'models/private_user_model.dart';
 
 class NavigationBarMenu extends StatelessWidget {
-  final PrivateUser? user;
+  final NormalUser? user;
 
   const NavigationBarMenu({super.key, required this.user});
 
@@ -48,12 +46,12 @@ class NavigationController extends GetxController {
 
   late final List<Widget> screens;
 
-  NavigationController({required PrivateUser? user}) {
+  NavigationController({required NormalUser? user}) {
     screens = [
       PrivateHomeScreen(user: user!),
-      PrivateOffersScreen(user: user),
+      //PrivateOffersScreen(user: user),
       const PrivateMailScreen(),
-      PrivateProfileScreen(user: user),
+      //PrivateProfileScreen(user: user),
     ];
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../../../../common/widgets/login/conditions_checkbox.dart';
-import '../../../../../../users/business/models/business_user_model.dart';
+import '../../../../../../models/business_user.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/constants/text_strings.dart';
 import '../../sucess/business_sucess_screen.dart';
@@ -180,16 +180,19 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
                 if (_formKey.currentState!.validate()) {
                   // If all fields are valid, create the BusinessUser object
                   BusinessUser user = BusinessUser(
+                    id: "0",
                     name: '${_firstNameController.text} ${_lastNameController.text}',
                     email: _emailController.text,
                     username: _usernameController.text,
+                    gender: "male",
+                    age: "99",
                     password: _passwordController.text,
                     phoneNumber: _phoneNumberController.text,
                     job: _jobController.text,
-                    company: _companyController.text.isEmpty ? null : _companyController.text,
+                    company: "Ezi",
                   );
 
-                  BusinessUser.main_business_users.add(user);
+                  //BusinessUser.add(user);
 
                   Get.to(() => BusinessSucessScreen(user: user));
                 }

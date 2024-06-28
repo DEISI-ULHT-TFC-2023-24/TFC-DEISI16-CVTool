@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:tfc_versaofinal/users/business/models/business_user_model.dart';
-import '../../../models/business_experiences_model.dart';
+
 
 class BusinessExperiencePage extends StatelessWidget {
-  final List<BusinessExperiences> experience;
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+  /*
+  final List<Ex> experience;
   final BusinessUser user;
 
   const BusinessExperiencePage({Key? key, required this.experience, required this.user}) : super(key: key);
@@ -51,4 +54,6 @@ class BusinessExperiencePage extends StatelessWidget {
       ),
     );
   }
+
+   */
 }

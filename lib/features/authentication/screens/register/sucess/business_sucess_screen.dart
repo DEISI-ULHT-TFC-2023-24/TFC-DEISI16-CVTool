@@ -6,7 +6,7 @@ import '../../../../../../utils/constants/image_strings.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/constants/text_strings.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
-import '../../../../../users/business/models/business_user_model.dart';
+import '../../../../../models/business_user.dart';
 
 
 class BusinessSucessScreen extends StatelessWidget {

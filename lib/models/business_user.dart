@@ -27,16 +27,16 @@ class BusinessUser {
 
   factory BusinessUser.fromMap(Map<String, dynamic> map) {
     return BusinessUser(
-        id: map['id'],
-        email: map['email'],
-        name: map['name'],
-        username: map['username'],
-        gender: map['gender'],
-        job: map['profissao'],
-        phoneNumber: map['numeroDeTelemovel'],
-        age: map['age'],
-        password: map['password'],
-        company: map['empresa']
+        id: map['id'].toString(),
+        email: map['email'] ?? '',
+        name: map['name'] ?? '',
+        username: map['username'] ?? '',
+        gender: map['gender'] ?? '',
+        job: map['profissao'] ?? '',
+        phoneNumber: map['numeroDeTelemovel'] ?? '',
+        age: map['age'].toString(),
+        password: map['password'] ?? '',
+        company: map['empresa'] ?? '',
     );
   }
 

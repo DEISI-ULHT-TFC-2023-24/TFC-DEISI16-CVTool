@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../../models/business_user.dart';
 import '../../../private/models/offer_model.dart';
-import '../../models/business_user_model.dart';
+
 
 class BusinessOffersScreen extends StatefulWidget {
   const BusinessOffersScreen({Key? key, required this.user}) : super(key: key);
@@ -17,15 +18,18 @@ class _OffersPageState extends State<BusinessOffersScreen> {
   @override
   void initState() {
     super.initState();
-    offers = widget.user.offers;
+    offers = widget.user.job as List<OfferModel>;
   }
 
   void updateList(String value) {
     setState(() {
-      offers = widget.user.offers
+      /*
+      offers = widget.user.id
           .where((element) =>
           element.job!.toLowerCase().contains(value.toLowerCase()))
           .toList();
+
+       */
     });
   }
 

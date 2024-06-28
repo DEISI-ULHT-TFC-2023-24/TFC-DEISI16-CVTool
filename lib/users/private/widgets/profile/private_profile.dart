@@ -1,19 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../models/private_user_model.dart';
-
+import 'package:tfc_versaofinal/models/normal_user.dart';
 
 class PrivateProfileScreen extends StatefulWidget {
   const PrivateProfileScreen({super.key, required this.user});
 
-  final PrivateUser user;
+  final NormalUser user;
 
   @override
   State<PrivateProfileScreen> createState() => _PrivateProfileState();
 }
 
 class _PrivateProfileState extends State<PrivateProfileScreen> {
-  late PrivateUser user;
+  late NormalUser user;
   bool isObscurePassword = true;
 
   // Variables to store edited values
@@ -39,6 +38,7 @@ class _PrivateProfileState extends State<PrivateProfileScreen> {
 
   void saveEditedUserData() {
     // Update the user object with edited data
+    /*
     setState(() {
       user.name = editedName;
       user.email = editedEmail;
@@ -47,6 +47,7 @@ class _PrivateProfileState extends State<PrivateProfileScreen> {
       user.phoneNumber = editedPhoneNumber;
       user.job = editedJob;
     });
+     */
   }
 
   @override

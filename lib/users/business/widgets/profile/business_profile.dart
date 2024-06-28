@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tfc_versaofinal/users/business/models/business_user_model.dart';
+import '../../../../models/business_user.dart';
 
 
 class BusinessProfileScreen extends StatefulWidget {
@@ -39,6 +39,7 @@ class _BusinessProfileState extends State<BusinessProfileScreen> {
 
   void saveEditedUserData() {
     // Update the user object with edited data
+    /*
     setState(() {
       user.name = editedName;
       user.email = editedEmail;
@@ -47,6 +48,8 @@ class _BusinessProfileState extends State<BusinessProfileScreen> {
       user.phoneNumber = editedPhoneNumber;
       user.job = editedJob;
     });
+
+     */
   }
 
   @override

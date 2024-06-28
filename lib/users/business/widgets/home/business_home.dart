@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tfc_versaofinal/users/business/models/business_user_model.dart';
-import 'package:tfc_versaofinal/users/business/widgets/home/widgets/business_experience_page.dart';
+import 'package:tfc_versaofinal/models/experiencia_laboral.dart';
 import '../../../../features/authentication/screens/login/login.dart';
-import '../../models/business_experiences_model.dart';
+import '../../../../models/business_user.dart';
+
 
 class BusinessHomeScreen extends StatefulWidget {
   BusinessHomeScreen({Key? key, required this.user}) : super(key: key);
@@ -14,17 +14,17 @@ class BusinessHomeScreen extends StatefulWidget {
 }
 
 class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
-  late List<BusinessExperiences> experiences;
+  //late List<ExperienciaLaboral> experiences;
 
   @override
   void initState() {
     super.initState();
-    experiences = widget.user.experiences;
+    //experiences = widget.user.job as List<ExperienciaLaboral>;
   }
 
-  void _addExperience(BusinessExperiences newExperience) {
+  void _addExperience(ExperienciaLaboral newExperience) {
     setState(() {
-      experiences.add(BusinessExperiences(name: newExperience.name, company: newExperience.company, description: '', date: DateTime.now()));
+      //experiences.add(ExperienciaLaboral(name: newExperience.name, company: newExperience.company, description: '', date: DateTime.now()));
     });
   }
 
@@ -108,7 +108,7 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewExperienceScreen(_addExperience)));
+                            //Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewExperienceScreen(_addExperience)));
                           },
                           child: Container(
                             padding: const EdgeInsets.all(5),
@@ -131,23 +131,23 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
                         padding: const EdgeInsets.all(15),
                         child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: experiences.length,
+                          itemCount: 0,
                           itemBuilder: (context, index) => ListTile(
                             contentPadding: const EdgeInsets.all(8.0),
-                            title: Text(
-                              experiences[index].name,
-                              style: const TextStyle(
+                            title: const Text(
+                              " ",
+                              style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
                             ),
-                            subtitle: Column(
+                            subtitle: const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  experiences[index].company,
-                                  style: const TextStyle(
+                                  " ",
+                                  style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
                                   ),
@@ -162,7 +162,7 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
                               color: Colors.black,
                             ),
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => BusinessExperiencePage(experience: experiences, user: widget.user)));
+                              //Navigator.of(context).push(MaterialPageRoute(builder: (context) => BusinessExperiencePage(experience: experiences, user: widget.user)));
                             },
                           ),
                         ),
@@ -179,8 +179,9 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
   }
 }
 
+/*
 class NewExperienceScreen extends StatefulWidget {
-  final Function(BusinessExperiences) addExperience;
+  final Function(ExperienciaLaboral) addExperience;
 
   const NewExperienceScreen(this.addExperience);
 
@@ -200,7 +201,7 @@ class _NewExperienceScreenState extends State<NewExperienceScreen> {
   }
 
   void _submitExperience() {
-    widget.addExperience(BusinessExperiences(name: _name, company: _company, description: '', date: DateTime.now()));
+   // widget.addExperience(e(name: _name, company: _company, description: '', date: DateTime.now()));
     Navigator.pop(context);
   }
 
@@ -235,3 +236,5 @@ class _NewExperienceScreenState extends State<NewExperienceScreen> {
     );
   }
 }
+
+ */

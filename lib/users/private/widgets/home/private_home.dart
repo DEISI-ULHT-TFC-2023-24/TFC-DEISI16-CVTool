@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_versaofinal/models/normal_user.dart';
 import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/new_private_experience.dart';
-import '../../models/private_user_model.dart';
-
 import 'package:tfc_versaofinal/users/private/models/private_experiences_model.dart';
-import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/private_experience_page.dart';
 import '../../../../features/authentication/screens/login/login.dart';
 
 
@@ -11,24 +9,24 @@ import '../../../../features/authentication/screens/login/login.dart';
 class PrivateHomeScreen extends StatefulWidget {
   PrivateHomeScreen({Key? key, required this.user}) : super(key: key);
 
-  final PrivateUser user;
+  final NormalUser user;
 
   @override
   _PrivateHomeScreenState createState() => _PrivateHomeScreenState();
 }
 
 class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
-  late List<PrivateExperiences> experiences;
+  //late List<PrivateExperiences> experiences = null;
 
   @override
   void initState() {
     super.initState();
-    experiences = widget.user.experiences!;
+    //experiences = widget.user.experiences!;
   }
 
   void _addExperience(PrivateExperiences newExperience) {
     setState(() {
-      experiences.add(PrivateExperiences(name: newExperience.name, company: newExperience.company, description: '', date: DateTime.now()));
+      //experiences.add(PrivateExperiences(name: newExperience.name, company: newExperience.company, description: '', date: DateTime.now()));
     });
   }
 
@@ -112,7 +110,7 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewPrivateExperienceScreen(_addExperience)));
+                            //Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewPrivateExperienceScreen(_addExperience)));
                           },
                           child: Container(
                             padding: const EdgeInsets.all(5),
@@ -135,11 +133,11 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                         padding: const EdgeInsets.all(15),
                         child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: experiences.length,
+                          itemCount: 0,
                           itemBuilder: (context, index) => ListTile(
                             contentPadding: const EdgeInsets.all(8.0),
                             title: Text(
-                              experiences[index].name,
+                              "experiences[index].name",
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -150,7 +148,7 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  experiences[index].company,
+                                  "experiences[index].company",
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
@@ -166,7 +164,7 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                               color: Colors.black,
                             ),
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivateExperiencePage(experience: experiences, user: widget.user)));
+                              //Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivateExperiencePage(experience: experiences, user: widget.user)));
                             },
                           ),
                         ),
@@ -208,11 +206,11 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                         padding: const EdgeInsets.all(15),
                         child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: experiences.length,
+                          itemCount: 0,
                           itemBuilder: (context, index) => ListTile(
                             contentPadding: const EdgeInsets.all(8.0),
                             title: Text(
-                              experiences[index].name,
+                              "experiences[index].name",
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -223,7 +221,7 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  experiences[index].company,
+                                  "experiences[index].company",
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
@@ -239,7 +237,7 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                               color: Colors.black,
                             ),
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivateExperiencePage(experience: experiences, user: widget.user)));
+                              //Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivateExperiencePage(experience: experiences)));
                             },
                           ),
                         ),
