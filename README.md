@@ -12,6 +12,10 @@ StudentID: a22204982.
 University: ULHT (Universidade Lusófona de Humanidades e Tecnologias)
 Course: LEI (Licenciatura em Engenharia Informática).
 
+# Apresentação e Divulgação
+A presença da Internet e ‘Softwares’ no nosso quotidiano permitiu transformar tarefas que costumavam demorar meses, semanas e dias em poucos minutos. Este avanço das tecnologias abriu portas para uma melhor interação entre as empresas e os candidatos, facilitando o envio de anúncios diretamente para as redes sociais onde a população está mais concentrada. O aparecimento dos dispositivos móveis abriu imensas possibilidades de negócio, mas principalmente de ferramentas para apoiar empresas e impulsionar a evolução das tecnologias humanitárias. As entrevistas antigamente eram um processo demorado e, além disso, o candidato devia deslocar-se até à sede da empresa. Com o surgimento de aplicações CV Tool Management, o processo foi completamente revolucionado. Neste mesmo contexto, onde o recrutamento e a seleção de candidatos são cruciais para o sucesso das organizações, tais ferramentas desempenham um processo crucial para o sucesso das organizações. Esta aplicação permite facilitar o primeiro contacto, crucial em muitos empregos.
+
+![img_3.png](img_3.png)
 
 
 # Project Origin
