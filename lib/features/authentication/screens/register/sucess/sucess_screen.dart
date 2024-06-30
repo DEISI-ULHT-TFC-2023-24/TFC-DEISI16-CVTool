@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tfc_versaofinal/common/styles/spacing_styles.dart';
 import 'package:tfc_versaofinal/features/authentication/screens/login/login.dart';
-import 'package:tfc_versaofinal/users/private/models/private_user_model.dart';
 import '../../../../../../utils/constants/image_strings.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/constants/text_strings.dart';
@@ -10,13 +9,8 @@ import '../../../../../../utils/helpers/helper_functions.dart';
 
 
 class SucessScreen extends StatelessWidget {
-  const SucessScreen({super.key, required this.user});
+  const SucessScreen({super.key});
 
-  final PrivateUser user;
-
-  void saveUser() {
-    PrivateUser.main_private_users.add(user);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +34,6 @@ class SucessScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    saveUser();
                     Get.to(() => const LoginScreen());
                   },
                   child: const Text(TFCTexts.continueMsg),

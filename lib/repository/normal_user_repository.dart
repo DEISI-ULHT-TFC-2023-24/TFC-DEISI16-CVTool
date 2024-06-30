@@ -29,7 +29,7 @@ class NormalUserRepository {
 
       if (responseJSON is List) {
         List<NormalUser> usersNormal =
-            responseJSON.map((user) => NormalUser.fromMap(user)).toList();
+        responseJSON.map((user) => NormalUser.fromMap(user)).toList();
         return usersNormal;
       } else {
         throw Exception('Invalid response format');
@@ -112,9 +112,18 @@ class NormalUserRepository {
   }
 
   // Create a new user
-  Future<String> createNewUser(int id, String email, String name, String username, String gender, String job, String phoneNumber, int age, String password) async {
+  Future<String> createNewUser({
+    required String email,
+    required String name,
+    required String username,
+    required String gender,
+    required String job,
+    required String phoneNumber,
+    required int age,
+    required String password,
+  }) async {
     final Map<String, dynamic> user = {
-      'id': id,
+      'id': 0,
       'email': email,
       'name': name,
       'username': username,
@@ -188,7 +197,17 @@ class NormalUserRepository {
   }
 
   // Edit User by id
-  Future<String> editUserById(int id, String email, String name, String username, String gender, String job, String phoneNumber, int age, String password) async {
+  Future<String> editUserById({
+    required int id,
+    required String email,
+    required String name,
+    required String username,
+    required String gender,
+    required String job,
+    required String phoneNumber,
+    required int age,
+    required String password,
+  }) async {
     final Map<String, dynamic> user = {
       'id': id,
       'email': email,

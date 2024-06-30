@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 import '../../../../../../common/widgets/login/conditions_checkbox.dart';
-import '../../../../../../users/private/models/private_user_model.dart';
+import '../../../../../../repository/normal_user_repository.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/constants/text_strings.dart';
 import '../../sucess/sucess_screen.dart';
 
-
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
-     super.key,
+    super.key,
   });
 
   @override
@@ -19,6 +19,7 @@ class SignUpForm extends StatefulWidget {
 }
 
 class SignUpFormState extends State<SignUpForm> {
+  late NormalUserRepository normalUserRepository;
   final _formKey = GlobalKey<FormState>();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -27,7 +28,15 @@ class SignUpFormState extends State<SignUpForm> {
   final _emailController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _jobController = TextEditingController();
+  final _ageController = TextEditingController();
+  final _genderController = TextEditingController();
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    normalUserRepository = context.read<NormalUserRepository>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,6 +168,42 @@ class SignUpFormState extends State<SignUpForm> {
               return null;
             },
           ),
+          const SizedBox(height: TFCSizes.spaceBtwInputFields),
+
+          // Age
+          TextFormField(
+            controller: _ageController,
+            decoration: const InputDecoration(
+              labelText: 'Age',
+              prefixIcon: Icon(Icons.cake),
+            ),
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your age';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: TFCSizes.spaceBtwInputFields),
+
+          // Gender
+          TextFormField(
+            controller: _genderController,
+            decoration: const InputDecoration(
+              labelText: 'Gender',
+              prefixIcon: Icon(Icons.wc),
+            ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your gender';
+              }
+              return null;
+            },
+          ),
           const SizedBox(height: TFCSizes.spaceBtwSections),
 
           // Terms agree checkbox
@@ -169,19 +214,26 @@ class SignUpFormState extends State<SignUpForm> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  // If all fields are valid, create the PrivateUser object
-                  PrivateUser user = PrivateUser(
-                    name: '${_firstNameController.text} ${_lastNameController.text}',
-                    email: _emailController.text,
-                    username: _usernameController.text,
-                    password: _passwordController.text,
-                    phoneNumber: _phoneNumberController.text,
-                    job: _jobController.text,
-                  );
-                  // Now you can use the 'user' object as needed, for example, passing it to another screen
-                  Get.to(() => SucessScreen(user: user));
+                  try {
+                    final result = await normalUserRepository.createNewUser(
+                      email: _emailController.text,
+                      name: '${_firstNameController.text} ${_lastNameController.text}',
+                      username: _usernameController.text,
+                      gender: _genderController.text,
+                      job: _jobController.text,
+                      phoneNumber: _phoneNumberController.text,
+                      age: int.parse(_ageController.text),
+                      password: _passwordController.text,
+                    );
+
+                    Get.to(() => const SucessScreen());
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(e.toString())),
+                    );
+                  }
                 }
               },
               child: const Text(TFCTexts.createAccount),

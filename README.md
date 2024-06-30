@@ -12,6 +12,8 @@ StudentID: a22204982.
 University: ULHT (Universidade Lusófona de Humanidades e Tecnologias)
 Course: LEI (Licenciatura em Engenharia Informática).
 
+
+
 # Project Origin
 In the course I'm studying, Computer Engineering, in the third year, in the second semester, you have to do a final course work, which in turn represents 20 ECTS (that's a lot).
 So I was given a list where I could choose the project I wanted to do, and this particular one really caught my eye, because it tackles a real problem, which is the recruitment process.
