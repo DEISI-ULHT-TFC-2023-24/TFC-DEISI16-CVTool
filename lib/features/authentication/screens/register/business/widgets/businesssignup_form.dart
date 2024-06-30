@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
+import 'package:tfc_versaofinal/repository/business_user_repository.dart';
 import '../../../../../../common/widgets/login/conditions_checkbox.dart';
-import '../../../../../../models/business_user.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/constants/text_strings.dart';
-import '../../sucess/business_sucess_screen.dart';
+import '../../sucess/sucess_screen.dart';
 
 class BusinessSignUpForm extends StatefulWidget {
   const BusinessSignUpForm({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class BusinessSignUpForm extends StatefulWidget {
 }
 
 class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
+  late BusinessUserRepository businessUserRepository;
   final _formKey = GlobalKey<FormState>();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -25,6 +27,14 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
   final _phoneNumberController = TextEditingController();
   final _jobController = TextEditingController();
   final _companyController = TextEditingController();
+  String? _selectedGender; // Added to store the selected gender
+  final _ageController = TextEditingController();
+
+  @override
+  void initState() {
+    businessUserRepository = context.read<BusinessUserRepository>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +54,7 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter your first name';
+                      return 'Por favor introduza o seu primeiro nome.';
                     }
                     return null;
                   },
@@ -60,7 +70,7 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter your last name';
+                      return 'Por favor introduza o seu último nome.';
                     }
                     return null;
                   },
@@ -79,7 +89,7 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter a username';
+                return 'Por favor introduza o seu nome de usuário.';
               }
               return null;
             },
@@ -97,7 +107,7 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter a password';
+                return 'Por favor introduza a sua senha.';
               }
               return null;
             },
@@ -113,7 +123,7 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter your email';
+                return 'Por favor introduza o seu email.';
               }
               // Add email validation logic here if needed
               return null;
@@ -134,7 +144,7 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter your phone number';
+                return 'Por favor introduza o seu número de telefone.';
               }
               // Add phone number validation logic here if needed
               return null;
@@ -146,12 +156,12 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
           TextFormField(
             controller: _jobController,
             decoration: const InputDecoration(
-              labelText: 'Job',
+              labelText: TFCTexts.job,
               prefixIcon: Icon(Icons.work),
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter your job';
+                return 'Por favor introduza a sua profissão.';
               }
               return null;
             },
@@ -165,6 +175,59 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
               labelText: TFCTexts.company,
               prefixIcon: Icon(Iconsax.building),
             ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Por favor introduza o nome da sua empresa.';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: TFCSizes.spaceBtwInputFields),
+
+          // Gender
+          DropdownButtonFormField<String>(
+            value: _selectedGender,
+            decoration: const InputDecoration(
+              labelText: TFCTexts.gender,
+              prefixIcon: Icon(Icons.person),
+            ),
+            items: ['Masculino', 'Feminino', 'Outro']
+                .map((gender) => DropdownMenuItem<String>(
+              value: gender,
+              child: Text(gender),
+            ))
+                .toList(),
+            onChanged: (value) {
+              setState(() {
+                _selectedGender = value;
+              });
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Por favor selecione o seu gênero.';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: TFCSizes.spaceBtwInputFields),
+
+          // Age
+          TextFormField(
+            controller: _ageController,
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            decoration: const InputDecoration(
+              labelText: TFCTexts.age,
+              prefixIcon: Icon(Icons.calendar_today),
+            ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Por favor introduza a sua idade.';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: TFCSizes.spaceBtwSections),
 
@@ -176,25 +239,27 @@ class _BusinessSignUpFormState extends State<BusinessSignUpForm> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  // If all fields are valid, create the BusinessUser object
-                  BusinessUser user = BusinessUser(
-                    id: 0,
-                    name: '${_firstNameController.text} ${_lastNameController.text}',
-                    email: _emailController.text,
-                    username: _usernameController.text,
-                    gender: "male",
-                    age: 99,
-                    password: _passwordController.text,
-                    phoneNumber: _phoneNumberController.text,
-                    job: _jobController.text,
-                    company: "Ezi",
-                  );
+                  try {
+                    final result = await businessUserRepository.createBusinessUser(
+                        email: _emailController.text,
+                        name: '${_firstNameController.text} ${_lastNameController.text}',
+                        username: _usernameController.text,
+                        gender: _selectedGender!.toString(),
+                        job: _jobController.text,
+                        phoneNumber: _phoneNumberController.text,
+                        age: int.parse(_ageController.text),
+                        password: _passwordController.text,
+                        company: _companyController.text
+                    );
 
-                  //BusinessUser.add(user);
-
-                  Get.to(() => BusinessSucessScreen(user: user));
+                    Get.to(() => const SucessScreen());
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(e.toString())),
+                    );
+                  }
                 }
               },
               child: const Text(TFCTexts.createAccount),

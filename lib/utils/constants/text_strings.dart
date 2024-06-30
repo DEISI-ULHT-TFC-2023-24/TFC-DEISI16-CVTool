@@ -30,7 +30,10 @@ class TFCTexts {
   static const String lastName = "Apelido";
   static const String password = "Palavra-passe";
   static const String newPassword = "Nova palavra-passe";
+  static const String job = "Profissão";
   static const String email = "Email";
+  static const String age = "Idade";
+  static const String gender = "Gênero";
   static const String mobilePhone = "Contacto telefónico";
   static const String company = "Nome da Empresa";
   static const String login = "Iniciar sessão";

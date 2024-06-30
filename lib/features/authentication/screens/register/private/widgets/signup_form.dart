@@ -10,15 +10,13 @@ import '../../../../../../utils/constants/text_strings.dart';
 import '../../sucess/sucess_screen.dart';
 
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({
-    super.key,
-  });
+  const SignUpForm({Key? key}) : super(key: key);
 
   @override
-  SignUpFormState createState() => SignUpFormState();
+  _SignUpFormState createState() => _SignUpFormState();
 }
 
-class SignUpFormState extends State<SignUpForm> {
+class _SignUpFormState extends State<SignUpForm> {
   late NormalUserRepository normalUserRepository;
   final _formKey = GlobalKey<FormState>();
   final _firstNameController = TextEditingController();
@@ -29,11 +27,10 @@ class SignUpFormState extends State<SignUpForm> {
   final _phoneNumberController = TextEditingController();
   final _jobController = TextEditingController();
   final _ageController = TextEditingController();
-  final _genderController = TextEditingController();
+  String? _selectedGender;
 
   @override
   void initState() {
-    // TODO: implement initState
     normalUserRepository = context.read<NormalUserRepository>();
     super.initState();
   }
@@ -56,7 +53,7 @@ class SignUpFormState extends State<SignUpForm> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter your first name';
+                      return 'Por favor introduza o seu primeiro nome.';
                     }
                     return null;
                   },
@@ -72,7 +69,7 @@ class SignUpFormState extends State<SignUpForm> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter your last name';
+                      return 'Por favor introduza o seu último nome.';
                     }
                     return null;
                   },
@@ -91,7 +88,7 @@ class SignUpFormState extends State<SignUpForm> {
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter a username';
+                return 'Por favor introduza o seu nome de usuário.';
               }
               return null;
             },
@@ -109,7 +106,7 @@ class SignUpFormState extends State<SignUpForm> {
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter a password';
+                return 'Por favor introduza a sua senha.';
               }
               return null;
             },
@@ -125,7 +122,7 @@ class SignUpFormState extends State<SignUpForm> {
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter your email';
+                return 'Por favor introduza o seu email.';
               }
               // Add email validation logic here if needed
               return null;
@@ -146,7 +143,7 @@ class SignUpFormState extends State<SignUpForm> {
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter your phone number';
+                return 'Por favor introduza o seu número de telefone.';
               }
               // Add phone number validation logic here if needed
               return null;
@@ -158,12 +155,12 @@ class SignUpFormState extends State<SignUpForm> {
           TextFormField(
             controller: _jobController,
             decoration: const InputDecoration(
-              labelText: 'Job',
+              labelText: TFCTexts.job,
               prefixIcon: Icon(Icons.work),
             ),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter your job';
+                return 'Por favor introduza a sua profissão.';
               }
               return null;
             },
@@ -174,8 +171,8 @@ class SignUpFormState extends State<SignUpForm> {
           TextFormField(
             controller: _ageController,
             decoration: const InputDecoration(
-              labelText: 'Age',
-              prefixIcon: Icon(Icons.cake),
+              labelText:  TFCTexts.age,
+              prefixIcon: Icon(Icons.calendar_today),
             ),
             keyboardType: TextInputType.number,
             inputFormatters: [
@@ -183,7 +180,7 @@ class SignUpFormState extends State<SignUpForm> {
             ],
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter your age';
+                return 'Por favor introduza a sua idade.';
               }
               return null;
             },
@@ -191,15 +188,26 @@ class SignUpFormState extends State<SignUpForm> {
           const SizedBox(height: TFCSizes.spaceBtwInputFields),
 
           // Gender
-          TextFormField(
-            controller: _genderController,
+          DropdownButtonFormField<String>(
+            value: _selectedGender,
             decoration: const InputDecoration(
-              labelText: 'Gender',
-              prefixIcon: Icon(Icons.wc),
+              labelText: TFCTexts.gender,
+              prefixIcon: Icon(Icons.person),
             ),
+            items: ['Masculino', 'Feminino', 'Outro']
+                .map((gender) => DropdownMenuItem<String>(
+              value: gender,
+              child: Text(gender),
+            ))
+                .toList(),
+            onChanged: (value) {
+              setState(() {
+                _selectedGender = value;
+              });
+            },
             validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your gender';
+              if (value == null || value.isEmpty) {
+                return 'Por favor selecione o seu gênero.';
               }
               return null;
             },
@@ -221,7 +229,7 @@ class SignUpFormState extends State<SignUpForm> {
                       email: _emailController.text,
                       name: '${_firstNameController.text} ${_lastNameController.text}',
                       username: _usernameController.text,
-                      gender: _genderController.text,
+                      gender: _selectedGender!,
                       job: _jobController.text,
                       phoneNumber: _phoneNumberController.text,
                       age: int.parse(_ageController.text),
