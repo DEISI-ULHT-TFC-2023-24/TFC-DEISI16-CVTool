@@ -5,7 +5,8 @@ import 'package:tfc_versaofinal/models/competencias.dart';
 import 'package:tfc_versaofinal/models/normal_user.dart';
 import 'package:tfc_versaofinal/repository/experiencia_repository.dart';
 import 'package:tfc_versaofinal/repository/skills_repository.dart';
-import '../../../../features/authentication/screens/login/login.dart';
+import 'package:tfc_versaofinal/features/authentication/screens/login/login.dart';
+import 'package:tfc_versaofinal/users/private/widgets/home/widgets/skills/new_skill.dart';
 
 class PrivateHomeScreen extends StatefulWidget {
   const PrivateHomeScreen({super.key, required this.user});
@@ -36,8 +37,9 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
     try {
       final fetchedExperiences = await experienceRepository
           .getExperienceByAuthor(widget.user.username);
-      final fetchedSkills = await skillsRepository.getSkillsByAuthorUsername(widget.user.username);
-      print(experiences);
+      final fetchedSkills = await skillsRepository
+          .getSkillsByAuthorUsername(widget.user.username);
+      print(fetchedExperiences);
       setState(() {
         experiences = fetchedExperiences ?? [];
         skills = fetchedSkills ?? [];
@@ -113,158 +115,163 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                 child: isLoading
                     ? const Center(child: CircularProgressIndicator())
                     : Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Experiencias',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  //Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewPrivateExperienceScreen(_addExperience)));
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  child: const Icon(
-                                    Icons.add,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Experiencias',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(height: 10),
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount: experiences.length,
-                              itemBuilder: (context, index) {
-                                final experience = experiences[index];
-                                return ListTile(
-                                  contentPadding: const EdgeInsets.all(8.0),
-                                  title: Text(
-                                    experience.job,
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        experience.companyName,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "${experience.city} - ",
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                          Text(
-                                            experience.durationOfExperience,
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  leading: const Icon(
-                                    Icons.work,
-                                    color: Colors.black,
-                                  ),
-                                  onTap: () {
-                                    // Navigate to experience details
-                                  },
-                                );
-                              },
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    NewExperienceScreen(
+                                        user: widget.user)));
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(5),
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.black,
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Competencias',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: experiences.length,
+                        itemBuilder: (context, index) {
+                          final experience = experiences[index];
+                          return ListTile(
+                            contentPadding: const EdgeInsets.all(8.0),
+                            title: Text(
+                              experience.job,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
                               ),
-                              TextButton(
-                                onPressed: () {
-                                  // Navigate to add new skill screen
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  child: const Icon(
-                                    Icons.add,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount: skills.length,
-                              itemBuilder: (context, index) {
-                                final skill = skills[index];
-                                return ListTile(
-                                  contentPadding: const EdgeInsets.all(8.0),
-                                  title: Text(
-                                    skill.name,
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        skill.type,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  leading: const Icon(
-                                    Icons.workspace_premium,
-                                    color: Colors.black,
-                                  ),
-                                  onTap: () {
-                                    // Navigate to skill details
-                                  },
-                                );
-                              },
                             ),
-                          ),
-                        ],
+                            subtitle: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  experience.companyName,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "${experience.city} - ",
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    Text(
+                                      experience.durationOfExperience,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            leading: const Icon(
+                              Icons.work,
+                              color: Colors.black,
+                            ),
+                            onTap: () {
+                              // Navigate to experience details
+                            },
+                          );
+                        },
                       ),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Competencias',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    NewExperienceScreen(user: widget.user)));
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(5),
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: skills.length,
+                        itemBuilder: (context, index) {
+                          final skill = skills[index];
+                          return ListTile(
+                            contentPadding: const EdgeInsets.all(8.0),
+                            title: Text(
+                              skill.name,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  skill.type,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            leading: const Icon(
+                              Icons.workspace_premium,
+                              color: Colors.black,
+                            ),
+                            onTap: () {
+                              // Navigate to skill details
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

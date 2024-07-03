@@ -1,4 +1,4 @@
-import 'package:tfc_versaofinal/models/normal_user.dart';
+import 'normal_user.dart';
 
 class ExperienciaLaboral {
   final int id;
@@ -14,17 +14,17 @@ class ExperienciaLaboral {
     required this.job,
     required this.companyName,
     required this.durationOfExperience,
-    required this.author,
+    this.author,
   });
 
   factory ExperienciaLaboral.fromMap(Map<String, dynamic> map) {
     return ExperienciaLaboral(
-      id: map['id'], // Ensuring id is a String
+      id: map['id'],
       city: map['cidade'] ?? '',
       job: map['profissao'] ?? '',
-      companyName: map['nomeEmpresa'] ?? '',
-      durationOfExperience: map['duracaoDaExperiencia'] ?? '',
-      author: map['author'] != null ? NormalUser.fromMap(map['author']) : null, // Correctly parsing the author field
+      companyName: map['nomeEmpresa'] ?? '', // Corrected key
+      durationOfExperience: map['duracao'] ?? '', // Corrected key
+      author: map['author'] != null ? NormalUser.fromMap(map['author']) : null,
     );
   }
 
@@ -33,9 +33,9 @@ class ExperienciaLaboral {
       'id': id,
       'cidade': city,
       'profissao': job,
-      'nomeEmpresa': companyName,
-      'duracaoDaExperiencia': durationOfExperience,
-      'author': author?.toMap(),
+      'nomeEmpresa': companyName, // Corrected key
+      'duracao': durationOfExperience, // Corrected key
+      'author': author?.toMap(), // Convert author to map if it's not null
     };
   }
 }

@@ -40,7 +40,7 @@ class NormalUserRepository {
   }
 
   // Get the user by id.
-  Future<NormalUser?> getUserById(String id) async {
+  Future<NormalUser?> getUserById(int id) async {
     // API
     final response = await _client.get(
       url: 'http://10.0.2.2:8080/api/userParticular/searchId/$id',

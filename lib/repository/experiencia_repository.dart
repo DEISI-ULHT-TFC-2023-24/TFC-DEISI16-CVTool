@@ -29,8 +29,9 @@ class ExperienciaRepository {
       print('Response JSON: $responseJSON'); // Debugging line
 
       if (responseJSON is List) {
-        List<ExperienciaLaboral> experiencias =
-        responseJSON.map((experiencia) => ExperienciaLaboral.fromMap(experiencia)).toList();
+        List<ExperienciaLaboral> experiencias = responseJSON
+            .map((experiencia) => ExperienciaLaboral.fromMap(experiencia))
+            .toList();
         return experiencias;
       } else {
         throw Exception('Invalid response format');
@@ -65,7 +66,8 @@ class ExperienciaRepository {
   }
 
   // Get the Experience by username
-  Future<List<ExperienciaLaboral>?> getExperienceByAuthor(String username) async {
+  Future<List<ExperienciaLaboral>?> getExperienceByAuthor(
+      String username) async {
     // Call API to get normal Users.
     final response = await _client.get(
       url: ('http://10.0.2.2:8080/api/experiencias/searchByAuthor/$username'),
@@ -81,8 +83,10 @@ class ExperienciaRepository {
       print('Response JSON: $responseJSON'); // Debugging line
 
       if (responseJSON is List) {
-        List<ExperienciaLaboral> experiences =
-        responseJSON.map((experience) => ExperienciaLaboral.fromMap(experience.cast<String, dynamic>())).toList();
+        List<ExperienciaLaboral> experiences = responseJSON
+            .map((experience) =>
+                ExperienciaLaboral.fromMap(experience.cast<String, dynamic>()))
+            .toList();
         return experiences;
       } else {
         throw Exception('Invalid response format');
@@ -93,7 +97,8 @@ class ExperienciaRepository {
   }
 
   // Get the Experience by company name
-  Future<List<ExperienciaLaboral>?> getExperienceByCompanyName(String company) async {
+  Future<List<ExperienciaLaboral>?> getExperienceByCompanyName(
+      String company) async {
     // Call API to get normal Users.
     final response = await _client.get(
       url: ('http://10.0.2.2:8080/api/experiencias/searchByCompany/$company'),
@@ -109,8 +114,10 @@ class ExperienciaRepository {
       print('Response JSON: $responseJSON'); // Debugging line
 
       if (responseJSON is List) {
-        List<ExperienciaLaboral> experiences =
-        responseJSON.map((experience) => ExperienciaLaboral.fromMap(experience.cast<String, dynamic>())).toList();
+        List<ExperienciaLaboral> experiences = responseJSON
+            .map((experience) =>
+                ExperienciaLaboral.fromMap(experience.cast<String, dynamic>()))
+            .toList();
         return experiences;
       } else {
         throw Exception('Invalid response format');
@@ -121,34 +128,45 @@ class ExperienciaRepository {
   }
 
   // Create a Experience
-  Future<String> createExperience(int id, String city, String job, String companyName, String duration, NormalUser author) async {
-    final Map<String, dynamic> commentData = {
+  Future<String> createExperience({
+    required int id,
+    required String city,
+    required String job,
+    required String nomeEmpresa,
+    required String duration,
+    required NormalUser author,
+  }) async {
+    final Map<String, dynamic> experience = {
       'id': id,
       'cidade': city,
       'profissao': job,
-      'nomeEmpresa': companyName,
-      'duracaoDaExperiencia': duration,
-      'author': author,
+      'nomeEmpresa': nomeEmpresa, // Corrected key
+      'duracao': duration, // Corrected key
+      'author': author.toMap(),
     };
 
     final response = await _client.post(
-      url: 'http://10.0.2.2:8080/api/experiencias/add',
+      url: 'http://10.0.2.2:8080/api/experiencias/add', // Ensure correct URL
       headers: {
         'Content-Type': 'application/json',
         'x-api-token': '12345',
         'Authorization': basicAuth,
       },
-      body: jsonEncode(commentData),
+      body: jsonEncode(experience),
     );
 
     if (response.statusCode == 201) {
       return 'Experience created successfully';
     } else if (response.statusCode == 409) {
-      return 'Conflict: Experience with these details already exists.';
+      return 'Conflict: ${response.body}';
     } else {
-      throw Exception('Failed to create Experience, status code: ${response.statusCode}');
+      throw Exception(
+          'Failed to create Experience, status code: ${response.statusCode}');
     }
   }
+
+
+
 
   // Delete Experience by id
   Future<String> deleteExperienceById(int id) async {
