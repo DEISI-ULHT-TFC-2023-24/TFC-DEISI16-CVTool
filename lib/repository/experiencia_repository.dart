@@ -165,14 +165,11 @@ class ExperienciaRepository {
     }
   }
 
-
-
-
   // Delete Experience by id
   Future<String> deleteExperienceById(int id) async {
     // API
     final response = await _client.delete(
-      url: ('http://10.0.2.2:8080/api/experiencia/delete/byId/$id'),
+      url: ('http://10.0.2.2:8080/api/experiencias/delete/byId/$id'),
       headers: {
         'x-api-token': '12345',
         'Authorization': basicAuth,

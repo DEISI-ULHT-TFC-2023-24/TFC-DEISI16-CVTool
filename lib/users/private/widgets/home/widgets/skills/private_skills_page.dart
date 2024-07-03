@@ -1,277 +1,125 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tfc_versaofinal/models/experiencia_laboral.dart';
-import 'package:tfc_versaofinal/models/competencias.dart';
 import 'package:tfc_versaofinal/models/normal_user.dart';
-import 'package:tfc_versaofinal/repository/experiencia_repository.dart';
+import 'package:tfc_versaofinal/repository/normal_user_repository.dart';
 import 'package:tfc_versaofinal/repository/skills_repository.dart';
-import 'package:tfc_versaofinal/features/authentication/screens/login/login.dart';
-
-import 'new_skill.dart';
 
 
-class PrivateHomeScreen extends StatefulWidget {
-  const PrivateHomeScreen({super.key, required this.user});
+class NewSkillScreen extends StatefulWidget {
+  const NewSkillScreen({
+    Key? key,
+    required this.user,
+    required this.onSkillAdded,
+  }) : super(key: key);
 
   final NormalUser user;
+  final VoidCallback onSkillAdded;
 
   @override
-  _PrivateHomeScreenState createState() => _PrivateHomeScreenState();
+  _NewSkillScreenState createState() => _NewSkillScreenState();
 }
 
-class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
-  late ExperienciaRepository experienceRepository;
+class _NewSkillScreenState extends State<NewSkillScreen> {
+  late NormalUserRepository normalUserRepository;
   late SkillsRepository skillsRepository;
+  final _formKey = GlobalKey<FormState>();
 
-  List<ExperienciaLaboral> experiences = [];
-  List<Competencias> skills = [];
-  bool isLoading = true;
+  final TextEditingController _nameController = TextEditingController();
+  String? _typeController; // Changed to nullable
 
   @override
   void initState() {
     super.initState();
-    experienceRepository = context.read<ExperienciaRepository>();
     skillsRepository = context.read<SkillsRepository>();
-    _fetchData();
+    normalUserRepository = context.read<NormalUserRepository>();
   }
 
-  Future<void> _fetchData() async {
-    try {
-      final fetchedExperiences = await experienceRepository
-          .getExperienceByAuthor(widget.user.username);
-      final fetchedSkills = await skillsRepository.getSkillsByAuthorUsername(widget.user.username);
-      print(fetchedExperiences);
-      print(fetchedSkills);
-      setState(() {
-        experiences = fetchedExperiences ?? [];
-        skills = fetchedSkills ?? [];
-        isLoading = false;
-      });
-    } catch (e) {
-      print(e);
-      setState(() {
-        isLoading = false;
-      });
+  Future<void> _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        final NormalUser? user =
+        await normalUserRepository.getUserById(widget.user.id);
+
+        if (user == null) {
+          throw Exception('User not found');
+        }
+
+        final message = await skillsRepository.createSkill(
+          name: _nameController.text,
+          typeOfSkill: _typeController ?? '', // Ensure type is not null
+          author: user,
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message)),
+        );
+
+        // Trigger the callback to notify the parent screen to refresh data
+        widget.onSkillAdded();
+
+        Navigator.of(context).pop(); // Go back to the previous screen
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to create skill: $e')),
+        );
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[600],
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.user.name,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            widget.user.job,
-                            style: const TextStyle(color: Colors.white54),
-                          ),
-                        ],
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen())),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.blue[400],
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          padding: const EdgeInsets.all(19),
-                          child: const Icon(
-                            Icons.exit_to_app,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                ],
+      appBar: AppBar(
+        title: const Text('Adicionar uma nova competência'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(labelText: 'Nome'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor introduza o nome da competência';
+                  }
+                  return null;
+                },
               ),
-            ),
-            const SizedBox(height: 5),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(25),
-                color: Colors.grey[300],
-                child: isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Experiencias',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewExperienceScreen(user: widget.user)));
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: experiences.length,
-                        itemBuilder: (context, index) {
-                          final experience = experiences[index];
-                          return ListTile(
-                            contentPadding: const EdgeInsets.all(8.0),
-                            title: Text(
-                              experience.job,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  experience.companyName,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "${experience.city} - ",
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                    Text(
-                                      experience.durationOfExperience,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            leading: const Icon(
-                              Icons.work,
-                              color: Colors.black,
-                            ),
-                            onTap: () {
-                              // Navigate to experience details
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Competencias',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            // Navigate to add new skill screen
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: skills.length,
-                        itemBuilder: (context, index) {
-                          final skill = skills[index];
-                          return ListTile(
-                            contentPadding: const EdgeInsets.all(8.0),
-                            title: Text(
-                              skill.name,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  skill.type,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            leading: const Icon(
-                              Icons.workspace_premium,
-                              color: Colors.black,
-                            ),
-                            onTap: () {
-                              // Navigate to skill details
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+              const SizedBox(height: 10),
+              DropdownButtonFormField<String>(
+                value: _typeController,
+                decoration: const InputDecoration(
+                  labelText: 'Tipo',
+                  prefixIcon: Icon(Icons.work),
                 ),
+                items: ['Soft Skill', 'Técnica', 'Outro']
+                    .map((type) => DropdownMenuItem<String>(
+                  value: type,
+                  child: Text(type),
+                ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _typeController = value;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor selecione o tipo da competência';
+                  }
+                  return null;
+                },
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _submitForm,
+                child: const Text('Criar Competência'),
+              ),
+            ],
+          ),
         ),
       ),
     );

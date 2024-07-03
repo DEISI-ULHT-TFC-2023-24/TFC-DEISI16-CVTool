@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tfc_versaofinal/models/experiencia_laboral.dart';
 import 'package:tfc_versaofinal/models/competencias.dart';
-import 'package:tfc_versaofinal/models/normal_user.dart';
 import 'package:tfc_versaofinal/repository/experiencia_repository.dart';
 import 'package:tfc_versaofinal/repository/skills_repository.dart';
 import 'package:tfc_versaofinal/features/authentication/screens/login/login.dart';
-import 'package:tfc_versaofinal/users/private/widgets/home/widgets/skills/new_skill.dart';
+import 'package:tfc_versaofinal/users/private/widgets/home/widgets/experiences/private_experience_page.dart';
+import 'package:tfc_versaofinal/users/private/widgets/home/widgets/skills/private_skills_page.dart';
+import '../../../../models/normal_user.dart';
 
 class PrivateHomeScreen extends StatefulWidget {
   const PrivateHomeScreen({super.key, required this.user});
@@ -39,7 +40,6 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
           .getExperienceByAuthor(widget.user.username);
       final fetchedSkills = await skillsRepository
           .getSkillsByAuthorUsername(widget.user.username);
-      print(fetchedExperiences);
       setState(() {
         experiences = fetchedExperiences ?? [];
         skills = fetchedSkills ?? [];
@@ -51,6 +51,14 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
         isLoading = false;
       });
     }
+  }
+
+  void _onExperienceAdded() {
+    _fetchData();
+  }
+
+  void _onSkillAdded() {
+    _fetchData();
   }
 
   @override
@@ -87,8 +95,10 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                       ),
                       TextButton(
                         onPressed: () => Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen())),
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        ),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.blue[400],
@@ -115,163 +125,245 @@ class _PrivateHomeScreenState extends State<PrivateHomeScreen> {
                 child: isLoading
                     ? const Center(child: CircularProgressIndicator())
                     : Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Experiencias',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    NewExperienceScreen(
-                                        user: widget.user)));
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: experiences.length,
-                        itemBuilder: (context, index) {
-                          final experience = experiences[index];
-                          return ListTile(
-                            contentPadding: const EdgeInsets.all(8.0),
-                            title: Text(
-                              experience.job,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  experience.companyName,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                  ),
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Experiencias',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "${experience.city} - ",
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15,
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => NewExperienceScreen(
+                                        user: widget.user,
+                                        onExperienceAdded: _onExperienceAdded,
                                       ),
                                     ),
-                                    Text(
-                                      experience.durationOfExperience,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            leading: const Icon(
-                              Icons.work,
-                              color: Colors.black,
-                            ),
-                            onTap: () {
-                              // Navigate to experience details
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Competencias',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    NewExperienceScreen(user: widget.user)));
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: skills.length,
-                        itemBuilder: (context, index) {
-                          final skill = skills[index];
-                          return ListTile(
-                            contentPadding: const EdgeInsets.all(8.0),
-                            title: Text(
-                              skill.name,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  skill.type,
-                                  style: const TextStyle(
+                                  );
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  child: const Icon(
+                                    Icons.add,
                                     color: Colors.black,
-                                    fontSize: 14,
                                   ),
                                 ),
-                              ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: experiences.length,
+                              itemBuilder: (context, index) {
+                                final experience = experiences[index];
+                                return ListTile(
+                                  contentPadding: const EdgeInsets.all(8.0),
+                                  title: Text(
+                                    experience.job,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        experience.companyName,
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "${experience.city} - ",
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          Text(
+                                            experience.durationOfExperience,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  leading: const Icon(
+                                    Icons.work,
+                                    color: Colors.black,
+                                  ),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.close),
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text(
+                                                'Excluir Experiência'),
+                                            content: const Text(
+                                                'Tem a certeza que quer apagar a experiência?'),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                child: Text('Cancelar'),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: Text('Apagar'),
+                                                onPressed: () async {
+                                                  experienceRepository
+                                                      .deleteExperienceById(
+                                                          experience.id);
+                                                  setState(() {
+                                                    experienceRepository =
+                                                        context.read<
+                                                            ExperienciaRepository>();
+                                                  });
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                                  onTap: () {
+                                    // Navigate to experience details
+                                  },
+                                );
+                              },
                             ),
-                            leading: const Icon(
-                              Icons.workspace_premium,
-                              color: Colors.black,
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Competencias',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => NewSkillScreen(
+                                        user: widget.user,
+                                        onSkillAdded: _onSkillAdded,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: skills.length,
+                              itemBuilder: (context, index) {
+                                final skill = skills[index];
+                                return ListTile(
+                                  contentPadding: const EdgeInsets.all(8.0),
+                                  title: Text(
+                                    skill.name,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        skill.type,
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  leading: const Icon(
+                                    Icons.workspace_premium,
+                                    color: Colors.black,
+                                  ),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.close),
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text(
+                                                'Excluir Competencia'),
+                                            content: const Text(
+                                                'Tem a certeza que quer apagar a competencia?'),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                child: Text('Cancelar'),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: Text('Apagar'),
+                                                onPressed: () async {
+                                                  skillsRepository
+                                                      .deleteSkillById(
+                                                          skill.id);
+                                                  setState(() {
+                                                    skillsRepository =
+                                                        context.read<
+                                                            SkillsRepository>();
+                                                  });
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
                             ),
-                            onTap: () {
-                              // Navigate to skill details
-                            },
-                          );
-                        },
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
               ),
             ),
           ],

@@ -29,8 +29,9 @@ class SkillsRepository {
       print('Response JSON: $responseJSON'); // Debugging line
 
       if (responseJSON is List) {
-        List<Competencias> competencias =
-        responseJSON.map((competencia) => Competencias.fromMap(competencia)).toList();
+        List<Competencias> competencias = responseJSON
+            .map((competencia) => Competencias.fromMap(competencia))
+            .toList();
         return competencias;
       } else {
         throw Exception('Invalid response format');
@@ -82,7 +83,8 @@ class SkillsRepository {
 
       if (responseJSON is List) {
         List<Competencias> competencias = responseJSON
-            .map((competencia) => Competencias.fromMap(competencia.cast<String, dynamic>()))
+            .map((competencia) =>
+                Competencias.fromMap(competencia.cast<String, dynamic>()))
             .toList();
         return competencias;
       } else {
@@ -94,7 +96,11 @@ class SkillsRepository {
   }
 
   // Create a skill
-  Future<String> createSkill(String name, String typeOfSkill, NormalUser author) async {
+  Future<String> createSkill({
+      required String name,
+      required String typeOfSkill,
+      required NormalUser author
+  }) async {
     final Map<String, dynamic> skillData = {
       'nome': name,
       'type': typeOfSkill,
@@ -116,7 +122,8 @@ class SkillsRepository {
     } else if (response.statusCode == 409) {
       return 'Conflict: Skill with these details already exists.';
     } else {
-      throw Exception('Failed to create skill, status code: ${response.statusCode}');
+      throw Exception(
+          'Failed to create skill, status code: ${response.statusCode}');
     }
   }
 
