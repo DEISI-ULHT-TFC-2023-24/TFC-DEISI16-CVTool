@@ -8,7 +8,6 @@ class FormacaoAcademica {
   final String duration;
   final NormalUser? author;
 
-
   FormacaoAcademica({
     required this.id,
     required this.name,
@@ -25,7 +24,18 @@ class FormacaoAcademica {
       type: map['tipoformacao'] ?? '',
       institute: map['instituto'] ?? '',
       duration: map['duracao'] ?? '',
-      author: map['author'] ?? '',
+      author: map['author'] != null ? NormalUser.fromMap(map['author']) : null,
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'nome': name,
+      'type': type,
+      'instituto': institute,
+      'duracao': duration,
+      'author': author?.toMap(),
+    };
   }
 }

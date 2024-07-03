@@ -29,8 +29,9 @@ class FormacaoRepository {
       print('Response JSON: $responseJSON'); // Debugging line
 
       if (responseJSON is List) {
-        List<FormacaoAcademica> formacoes =
-        responseJSON.map((formacao) => FormacaoAcademica.fromMap(formacao)).toList();
+        List<FormacaoAcademica> formacoes = responseJSON
+            .map((formacao) => FormacaoAcademica.fromMap(formacao))
+            .toList();
         return formacoes;
       } else {
         throw Exception('Invalid response format');
@@ -65,7 +66,8 @@ class FormacaoRepository {
   }
 
   // Get the formation by author username
-  Future<List<FormacaoAcademica>?> getFormacaoByAuthorUsername(String username) async {
+  Future<List<FormacaoAcademica>?> getFormacaoByAuthorUsername(
+      String username) async {
     // Call API to get normal Users.
     final response = await _client.get(
       url: 'http://10.0.2.2:8080/api/formacoes/searchByAuthor/$username',
@@ -81,8 +83,9 @@ class FormacaoRepository {
       print('Response JSON: $responseJSON'); // Debugging line
 
       if (responseJSON is List) {
-        List<FormacaoAcademica> formacoes =
-        responseJSON.map((formacao) => FormacaoAcademica.fromMap(formacao)).toList();
+        List<FormacaoAcademica> formacoes = responseJSON
+            .map((formacao) => FormacaoAcademica.fromMap(formacao))
+            .toList();
         return formacoes;
       } else {
         throw Exception('Invalid response format');
@@ -93,14 +96,21 @@ class FormacaoRepository {
   }
 
   // Create a formation by id
-  Future<String> createFormacao(int id, String name, String typeOfFormation, String institute, String duration, NormalUser author) async {
+  Future<String> createFormacao({
+      required int id,
+      required String name,
+      required String typeOfFormation,
+      required String institute,
+      required String duration,
+      required NormalUser author
+  }) async {
     final Map<String, dynamic> commentData = {
       'id': id,
       'nome': name,
       'tipoformacao': typeOfFormation,
       'instituto': institute,
       'duracao': duration,
-      'author': author,
+      'author': author.toMap(),
     };
 
     final response = await _client.post(
@@ -118,7 +128,8 @@ class FormacaoRepository {
     } else if (response.statusCode == 409) {
       return 'Conflict: Formation with these details already exists.';
     } else {
-      throw Exception('Failed to create formation, status code: ${response.statusCode}');
+      throw Exception(
+          'Failed to create formation, status code: ${response.statusCode}');
     }
   }
 

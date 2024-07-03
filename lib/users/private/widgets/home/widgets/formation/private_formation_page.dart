@@ -8,11 +8,11 @@ class NewFormationScreen extends StatefulWidget {
   const NewFormationScreen({
     Key? key,
     required this.user,
-    required this.onSkillAdded,
+    required this.onFormationAdded,
   }) : super(key: key);
 
   final NormalUser user;
-  final VoidCallback onSkillAdded;
+  final VoidCallback onFormationAdded;
 
   @override
   _NewFormationScreenState createState() => _NewFormationScreenState();
@@ -59,7 +59,7 @@ class _NewFormationScreenState extends State<NewFormationScreen> {
         );
 
         // Trigger the callback to notify the parent screen to refresh data
-        widget.onSkillAdded();
+        widget.onFormationAdded();
 
         Navigator.of(context).pop(); // Go back to the previous screen
       } catch (e) {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tfc_versaofinal/models/experiencia_laboral.dart';
+import 'package:provider/provider.dart';
 import '../../../../features/authentication/screens/login/login.dart';
 import '../../../../models/business_user.dart';
+import '../../../../repository/propostas_repository.dart';
 
 
 class BusinessHomeScreen extends StatefulWidget {
@@ -14,18 +15,14 @@ class BusinessHomeScreen extends StatefulWidget {
 }
 
 class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
-  //late List<ExperienciaLaboral> experiences;
+  late OffersRepository offersRepository;
+
+  List<OffersRepository> offers = [];
 
   @override
   void initState() {
     super.initState();
-    //experiences = widget.user.job as List<ExperienciaLaboral>;
-  }
-
-  void _addExperience(ExperienciaLaboral newExperience) {
-    setState(() {
-      //experiences.add(ExperienciaLaboral(name: newExperience.name, company: newExperience.company, description: '', date: DateTime.now()));
-    });
+    offersRepository = context.read<OffersRepository>();
   }
 
   @override
@@ -95,27 +92,15 @@ class _BusinessHomeScreenState extends State<BusinessHomeScreen> {
                 color: Colors.grey[300],
                 child: Column(
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Experiencias',
+                        Text(
+                          'Candidaturas recebidas',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            //Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewExperienceScreen(_addExperience)));
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.black,
-                            ),
                           ),
                         ),
                       ],
